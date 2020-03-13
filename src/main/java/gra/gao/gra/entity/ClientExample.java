@@ -494,6 +494,76 @@ public class ClientExample {
             addCriterion("g_password not between", value1, value2, "g_password");
             return (Criteria) this;
         }
+
+        public Criteria andG_uuidIsNull() {
+            addCriterion("g_uuid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidIsNotNull() {
+            addCriterion("g_uuid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidEqualTo(String value) {
+            addCriterion("g_uuid =", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidNotEqualTo(String value) {
+            addCriterion("g_uuid <>", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidGreaterThan(String value) {
+            addCriterion("g_uuid >", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidGreaterThanOrEqualTo(String value) {
+            addCriterion("g_uuid >=", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidLessThan(String value) {
+            addCriterion("g_uuid <", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidLessThanOrEqualTo(String value) {
+            addCriterion("g_uuid <=", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidLike(String value) {
+            addCriterion("g_uuid like", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidNotLike(String value) {
+            addCriterion("g_uuid not like", value, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidIn(List<String> values) {
+            addCriterion("g_uuid in", values, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidNotIn(List<String> values) {
+            addCriterion("g_uuid not in", values, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidBetween(String value1, String value2) {
+            addCriterion("g_uuid between", value1, value2, "g_uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andG_uuidNotBetween(String value1, String value2) {
+            addCriterion("g_uuid not between", value1, value2, "g_uuid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -25,6 +25,7 @@ spring:
 logging:
   level:
     gra.gao.gra: warn
+    root: info
   file:
     path: ${user.home}/.gra_blog/logs
 

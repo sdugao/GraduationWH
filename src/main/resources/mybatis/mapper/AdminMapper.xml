@@ -6,8 +6,8 @@
     <result column="gmt_created" jdbcType="TIMESTAMP" property="gmt_created" />
     <result column="gmt_updated" jdbcType="TIMESTAMP" property="gmt_updated" />
     <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="g_password" jdbcType="VARCHAR" property="g_password" />
+    <result column="g_uuid" jdbcType="CHAR" property="g_uuid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -39,7 +39,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_created, gmt_updated, username, nickname, g_password
+    id, gmt_created, gmt_updated, username, g_password, g_uuid
   </sql>
   <select id="selectByExample" parameterType="gra.gao.gra.entity.AdminExample" resultMap="BaseResultMap">
     select
@@ -68,9 +68,9 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Admin" useGeneratedKeys="true">
     insert into g_admin (gmt_created, gmt_updated, username, 
-      nickname, g_password)
+      g_password, g_uuid)
     values (#{gmt_created,jdbcType=TIMESTAMP}, #{gmt_updated,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{g_password,jdbcType=VARCHAR})
+      #{g_password,jdbcType=VARCHAR}, #{g_uuid,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Admin" useGeneratedKeys="true">
     insert into g_admin
@@ -84,11 +84,11 @@
       <if test="username != null">
         username,
       </if>
-      <if test="nickname != null">
-        nickname,
-      </if>
       <if test="g_password != null">
         g_password,
+      </if>
+      <if test="g_uuid != null">
+        g_uuid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -101,11 +101,11 @@
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
-      </if>
       <if test="g_password != null">
         #{g_password,jdbcType=VARCHAR},
+      </if>
+      <if test="g_uuid != null">
+        #{g_uuid,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -121,11 +121,11 @@
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null">
-        nickname = #{nickname,jdbcType=VARCHAR},
-      </if>
       <if test="g_password != null">
         g_password = #{g_password,jdbcType=VARCHAR},
+      </if>
+      <if test="g_uuid != null">
+        g_uuid = #{g_uuid,jdbcType=CHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -135,8 +135,8 @@
     set gmt_created = #{gmt_created,jdbcType=TIMESTAMP},
       gmt_updated = #{gmt_updated,jdbcType=TIMESTAMP},
       username = #{username,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      g_password = #{g_password,jdbcType=VARCHAR}
+      g_password = #{g_password,jdbcType=VARCHAR},
+      g_uuid = #{g_uuid,jdbcType=CHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

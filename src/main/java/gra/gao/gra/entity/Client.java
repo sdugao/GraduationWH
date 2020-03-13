@@ -15,6 +15,8 @@ public class Client {
 
     private String g_password;
 
+    private String g_uuid;
+
     public Long getId() {
         return id;
     }
@@ -63,6 +65,14 @@ public class Client {
         this.g_password = g_password;
     }
 
+    public String getG_uuid() {
+        return g_uuid;
+    }
+
+    public void setG_uuid(String g_uuid) {
+        this.g_uuid = g_uuid;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -75,6 +85,7 @@ public class Client {
         sb.append(", username=").append(username);
         sb.append(", nickname=").append(nickname);
         sb.append(", g_password=").append(g_password);
+        sb.append(", g_uuid=").append(g_uuid);
         sb.append("]");
         return sb.toString();
     }

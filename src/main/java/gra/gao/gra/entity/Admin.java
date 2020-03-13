@@ -11,9 +11,9 @@ public class Admin {
 
     private String username;
 
-    private String nickname;
-
     private String g_password;
+
+    private String g_uuid;
 
     public Long getId() {
         return id;
@@ -47,20 +47,20 @@ public class Admin {
         this.username = username;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public String getG_password() {
         return g_password;
     }
 
     public void setG_password(String g_password) {
         this.g_password = g_password;
+    }
+
+    public String getG_uuid() {
+        return g_uuid;
+    }
+
+    public void setG_uuid(String g_uuid) {
+        this.g_uuid = g_uuid;
     }
 
     @Override
@@ -73,8 +73,8 @@ public class Admin {
         sb.append(", gmt_created=").append(gmt_created);
         sb.append(", gmt_updated=").append(gmt_updated);
         sb.append(", username=").append(username);
-        sb.append(", nickname=").append(nickname);
         sb.append(", g_password=").append(g_password);
+        sb.append(", g_uuid=").append(g_uuid);
         sb.append("]");
         return sb.toString();
     }

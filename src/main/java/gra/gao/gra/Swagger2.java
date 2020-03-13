@@ -18,8 +18,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @description:none
  */
 
-//@Configuration
-//@EnableSwagger2
+@Configuration
+@EnableSwagger2
 public class Swagger2 {
 
     @Bean
@@ -34,11 +34,9 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Wmyskxz个人博客RESTful APIs")
-                .description("原文地址链接：http://blog.didispace.com/springbootswagger2/")
-                .termsOfServiceUrl("http://blog.didispace.com/")
-                .contact("@我没有三颗心脏")
-                .version("1.0")
+                .title(" APIs（swagger2）")
+                .description("高晓峰个人博客API文档")
+                .version("0.0.1")
                 .build();
     }
 

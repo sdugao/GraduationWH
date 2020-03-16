@@ -1,8 +1,6 @@
-package gra.gao.gra.util;
+package gra.gao.gra.common;
 
 import lombok.Data;
-
-import javax.annotation.security.DenyAll;
 
 /**
  * @author:gao

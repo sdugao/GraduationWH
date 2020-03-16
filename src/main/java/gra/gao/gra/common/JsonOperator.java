@@ -1,4 +1,4 @@
-package gra.gao.gra.util;
+package gra.gao.gra.common;
 
 import com.alibaba.fastjson.JSON;
 

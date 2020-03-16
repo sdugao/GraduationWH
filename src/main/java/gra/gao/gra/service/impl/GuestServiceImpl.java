@@ -6,7 +6,7 @@ import gra.gao.gra.entity.GuestExample;
 import gra.gao.gra.exception.DataBaseException;
 import gra.gao.gra.mapper.GuestMapper;
 import gra.gao.gra.service.GuestService;
-import gra.gao.gra.util.CommonConst;
+import gra.gao.gra.common.CommonConst;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 

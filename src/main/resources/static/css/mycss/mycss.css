@@ -1,0 +1,28 @@
+.my-panel{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.my-font{
+    color: red;
+}
+
+ul{
+    text-align: left;
+}
+
+.my-logo{
+    margin: 5px auto;
+    height:40px;
+    width:40px;
+}
+
+.my-tittle{
+    font-size:24px;
+    color: black;
+    margin-bottom: 7px;
+}
+.my-t-date{
+    font-size: 13px;
+    color: grey;
+}

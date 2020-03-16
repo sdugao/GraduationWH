@@ -2,7 +2,7 @@ package gra.gao.gra.interceptor;
 
 import gra.gao.gra.dto.GuestDTO;
 import gra.gao.gra.service.GuestService;
-import gra.gao.gra.util.CommonConst;
+import gra.gao.gra.common.CommonConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 

@@ -5,7 +5,7 @@ import gra.gao.gra.dto.AdminDTO;
 import gra.gao.gra.entity.Admin;
 import gra.gao.gra.mapper.AdminMapper;
 import gra.gao.gra.service.AdminService;
-import gra.gao.gra.util.CommonConst;
+import gra.gao.gra.common.CommonConst;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

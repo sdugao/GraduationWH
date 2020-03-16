@@ -6,9 +6,9 @@ import gra.gao.gra.entity.Article;
 import gra.gao.gra.mapper.ArticleCatalogMapper;
 import gra.gao.gra.mapper.ArticleMapper;
 import gra.gao.gra.service.ArticleService;
-import gra.gao.gra.util.CommonCode;
-import gra.gao.gra.util.CommonConst;
-import gra.gao.gra.util.JsonOperator;
+import gra.gao.gra.common.CommonCode;
+import gra.gao.gra.common.CommonConst;
+import gra.gao.gra.common.JsonOperator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

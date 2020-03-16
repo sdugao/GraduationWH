@@ -100,7 +100,7 @@
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
 
-        <table tableName="g_client" domainObjectName="Client" enableCountByExample="false"
+        <table tableName="g_guest" domainObjectName="Guest" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
                selectByExampleQueryId="false">
             <!--使用自增长键-->

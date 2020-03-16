@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="gra.gao.gra.mapper.ClientMapper">
-  <resultMap id="BaseResultMap" type="gra.gao.gra.entity.Client">
+<mapper namespace="gra.gao.gra.mapper.GuestMapper">
+  <resultMap id="BaseResultMap" type="gra.gao.gra.entity.Guest">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_created" jdbcType="TIMESTAMP" property="gmt_created" />
     <result column="gmt_updated" jdbcType="TIMESTAMP" property="gmt_updated" />
@@ -42,14 +42,14 @@
   <sql id="Base_Column_List">
     id, gmt_created, gmt_updated, username, nickname, g_password, g_uuid
   </sql>
-  <select id="selectByExample" parameterType="gra.gao.gra.entity.ClientExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="gra.gao.gra.entity.GuestExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from g_client
+    from g_guest
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -60,23 +60,23 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from g_client
+    from g_guest
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from g_client
+    delete from g_guest
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Client" useGeneratedKeys="true">
-    insert into g_client (gmt_created, gmt_updated, username, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Guest" useGeneratedKeys="true">
+    insert into g_guest (gmt_created, gmt_updated, username, 
       nickname, g_password, g_uuid
       )
     values (#{gmt_created,jdbcType=TIMESTAMP}, #{gmt_updated,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{g_password,jdbcType=VARCHAR}, #{g_uuid,jdbcType=CHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Client" useGeneratedKeys="true">
-    insert into g_client
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Guest" useGeneratedKeys="true">
+    insert into g_guest
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="gmt_created != null">
         gmt_created,
@@ -118,8 +118,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="gra.gao.gra.entity.Client">
-    update g_client
+  <update id="updateByPrimaryKeySelective" parameterType="gra.gao.gra.entity.Guest">
+    update g_guest
     <set>
       <if test="gmt_created != null">
         gmt_created = #{gmt_created,jdbcType=TIMESTAMP},
@@ -142,8 +142,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="gra.gao.gra.entity.Client">
-    update g_client
+  <update id="updateByPrimaryKey" parameterType="gra.gao.gra.entity.Guest">
+    update g_guest
     set gmt_created = #{gmt_created,jdbcType=TIMESTAMP},
       gmt_updated = #{gmt_updated,jdbcType=TIMESTAMP},
       username = #{username,jdbcType=VARCHAR},

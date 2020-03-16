@@ -30,3 +30,5 @@ logging:
     path: ${user.home}/.gra_blog/logs
 
 
+mybatis:
+  mapper-locations: mybatis/mapper/*.xml

@@ -2,7 +2,7 @@ package gra.gao.gra.entity;
 
 import java.util.Date;
 
-public class Client {
+public class Guest {
     private Long id;
 
     private Date gmt_created;

@@ -1,6 +1,10 @@
 package gra.gao.gra.common;
 
 import com.alibaba.fastjson.JSON;
+import lombok.NonNull;
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+
+import java.util.List;
 
 /**
  * @author:gao
@@ -11,6 +15,8 @@ import com.alibaba.fastjson.JSON;
  */
 
 public class JsonOperator {
+
+
 
     public static String getStatusJson(boolean success){
         String json;
@@ -26,13 +32,13 @@ public class JsonOperator {
         return json;
     }
 
-
-    public static String getMSGJson(Object msg,Integer code){
+    public static String getMSGJson(@NonNull Object msg,@NonNull Integer code){
         String json;
         CommonJson cJson =new CommonJson();
         cJson.setCode(code);
-        cJson.setMessage(JSON.toJSONString(msg));
+        cJson.setMessage(msg);
         json = JSON.toJSONString(cJson);
         return json;
     }
+
 }

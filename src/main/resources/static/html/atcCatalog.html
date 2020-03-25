@@ -9,7 +9,47 @@
     <link href="../css/mycss/mycss.css" rel="stylesheet">
     <script src="../js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="../js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="../js/vue.min.js" type="application/javascript"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 
+    <script>
+        window.onload = function(){
+            var url = "http://localhost:8848/articles/catalog/1"
+            var vm = new Vue({
+                el:'#gcatalog',
+                data:{
+                    code: 0,
+                    list:[],
+                    content_url:"http://localhost:8848/html/atcDetails.html?id="
+                    //l:[{"gmt_updated":1584358724000,"id":1,"tittle":"string"},{"gmt_updated":1584363258000,"id":2,"tittle":"1"},{"gmt_updated":1584363263000,"id":3,"tittle":"2"},{"gmt_updated":1584363268000,"id":4,"tittle":"3"},{"gmt_updated":1584363274000,"id":5,"tittle":"4"},{"gmt_updated":1584363339000,"id":6,"tittle":"5"},{"gmt_updated":1584363342000,"id":7,"tittle":"6"},{"gmt_updated":1584363348000,"id":8,"tittle":"7"},{"gmt_updated":1584363352000,"id":9,"tittle":"8"},{"gmt_updated":1584363356000,"id":10,"tittle":"9"}]
+                },
+                created:function(){
+                    this.getCatalog();
+                },
+                mounted:function(){
+                },
+                methods:{
+                    getCatalog:function(){
+                        $.ajax({
+                            type: 'get',
+                            sync: true,
+                            //contentType: "application/x-www-form-urlencoded; charset=utf-8",//x-www-form-urlencoded
+                            url:  url,
+                            data:{
+                    },
+                        dataType: 'json',
+                            success: function (result) {
+                                //console.log(result.code);
+                            vm.code = result.code;
+                            vm.list = result.message;
+                        }
+                    });
+                    }
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -67,13 +107,9 @@
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12 col-lg-8 col-sm-8 col-sm-8" >
+                <div class="col-lg-12 col-lg-8 col-sm-8 col-sm-8" id="gcatalog">
                     <ul class="list-group">
-                        <li class="list-group-item " ><div><div class="my-tittle"><a>这是文章标题</a></div><div class="my-t-date"><span>最近修改：2019-3-3 &nbsp;&nbsp;&nbsp;评论数：10 &nbsp;&nbsp;&nbsp;点赞数：10</span></div></div></li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item" v-if="code==200" v-for="json in list" ><div><div class="my-tittle" ><a :href="content_url+json.id">{{json.tittle}}</a></div><div class="my-t-date"><span>最近修改：{{json.gmt_updated}} &nbsp;&nbsp;&nbsp;评论数：10 &nbsp;&nbsp;&nbsp;点赞数：10</span></div></div></li>
                     </ul>
                 </div>
 

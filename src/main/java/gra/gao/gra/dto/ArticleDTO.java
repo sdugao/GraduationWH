@@ -25,5 +25,6 @@ public class ArticleDTO {
 
     private String tag;
 
-    private Boolean deleted;
+    private Date gmt_updated;
+
 }

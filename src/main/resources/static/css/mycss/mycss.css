@@ -26,3 +26,53 @@ ul{
     font-size: 13px;
     color: grey;
 }
+
+.my-submit{
+    float: right;
+}
+
+
+.my-question-icon {
+    float: left;
+    width: 53px;
+    height: 53px;
+    margin-right:20px ;
+}
+.my-question-words{
+    float: left;
+}
+
+.my-question-tittle{
+    font-size: 25px;
+    font-style: normal;
+    color: midnightblue;
+}
+
+.my-question-counts{
+    font-size: 13px;
+    font-style: normal;
+    color: darkgray;
+}
+.my-question-item{
+    margin-bottom: 10px;
+}
+
+.my-details-tittle{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.my-details-user{
+    color: darkgrey;
+}
+.my-question-edit{
+    width:fit-content;
+    height: fit-content;
+}
+
+.my-search{
+    left:35%;
+    position: absolute;
+}
+.my-reply{
+    width:40px;
+}

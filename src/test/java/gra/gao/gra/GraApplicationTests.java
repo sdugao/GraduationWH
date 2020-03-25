@@ -9,6 +9,12 @@ import java.util.UUID;
 class GraApplicationTests {
 
     @Test
+    void testPirnt(){
+        System.out.println("\"{");
+    }
+
+
+    @Test
     void contextLoads() {
         String uuid= UUID.randomUUID().toString();
         System.out.println(uuid.length());

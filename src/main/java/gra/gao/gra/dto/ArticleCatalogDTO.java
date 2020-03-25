@@ -2,6 +2,8 @@ package gra.gao.gra.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author:gao
  * @date:2020/3/16
@@ -15,4 +17,5 @@ public class ArticleCatalogDTO {
 
     private Long id;
     private String Tittle;
+    private String gmt_updated;
 }

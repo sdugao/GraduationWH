@@ -15,19 +15,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @description:none
  */
 
-//@Configuration
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截访问后台的接口
-        registry.addInterceptor(new AdminLoginInterceptor())
-                    .excludePathPatterns("/admin/login")
-                    .addPathPatterns("/admin/**");
+//        registry.addInterceptor(new AdminLoginInterceptor())
+//                    .excludePathPatterns("/admin/login")
+//                    .addPathPatterns("/admin/**");
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/admin/login").setViewName("/html/adminLogin.html");
+        registry.addViewController("/").setViewName("/html/atcCatalog.html");
     }
 
 

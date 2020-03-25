@@ -2,6 +2,7 @@ package gra.gao.gra.controller;
 
 import gra.gao.gra.service.ArticleService;
 import io.swagger.annotations.ApiOperation;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("/articles")
+@CrossOrigin
 public class ArticleController {
 
     @Autowired
@@ -23,6 +25,9 @@ public class ArticleController {
     @ApiOperation("返回文章目录信息")
     @GetMapping("/catalog/{page}")
     public String getArticlesCatalogByPage(@PathVariable Integer page){
+        if(page==null){
+            page = Integer.valueOf(1);
+        }
         String catalogJSON = articleService.getArticleCatalog(page);
         return catalogJSON;
     }
@@ -30,7 +35,8 @@ public class ArticleController {
 
     @ApiOperation("返回具体文章详细信息")
     @PostMapping("/details/{id}")
-    public String getArticlesDetailsByID(){
-        return null;
+    public String getArticlesDetailsByID(@NonNull @PathVariable Long id){
+        String detailsJSON = articleService.getArticleByID(id);
+        return detailsJSON;
     }
 }

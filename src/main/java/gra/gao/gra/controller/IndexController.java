@@ -2,6 +2,7 @@ package gra.gao.gra.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
 
     @ApiOperation("首页，显示博客文章列表界面")
-    @GetMapping({"/","index"})
+    @PostMapping("index")
     public String index(){
         return "hello world!";
     }

@@ -93,4 +93,24 @@ public class ArticleServiceImpl implements ArticleService {
         String json= JsonOperator.getMSGJson(list, CommonCode.SUCCESS);
         return json;
     }
+
+    @Override
+    public String getArticleByID(Long id) {
+        Article article=articleMapper.selectByPrimaryKey(id);
+        ArticleDTO articleDTO  =new ArticleDTO();
+        //没设置删除功能，数据库中还未加上deleted
+        /*
+         if(article.getDeleted==true){
+            return 没有
+         }
+         */
+        articleDTO.setContent(article.getContent());
+        articleDTO.setG_type(article.getG_type());
+        articleDTO.setId(article.getId());
+        articleDTO.setTag(article.getTag());
+        articleDTO.setTittle(article.getTittle());
+        articleDTO.setGmt_updated(article.getGmt_updated());
+        String json=JsonOperator.getMSGJson(articleDTO,CommonCode.SUCCESS);
+        return json;
+    }
 }

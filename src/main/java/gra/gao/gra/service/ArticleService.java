@@ -6,6 +6,7 @@ public interface ArticleService {
 
     public String  writeArticle(ArticleDTO articleDTO);
     public String updateArticle(ArticleDTO articleDTO);
+    public String deleteArticleByID(Long id);
     public String getArticleCatalog(Integer pages);
     public String getArticleByID(Long id);
 

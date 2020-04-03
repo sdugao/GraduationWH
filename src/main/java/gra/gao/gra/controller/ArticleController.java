@@ -1,6 +1,8 @@
 package gra.gao.gra.controller;
 
+import gra.gao.gra.dto.CommentDTO;
 import gra.gao.gra.service.ArticleService;
+import gra.gao.gra.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,15 @@ import org.springframework.web.bind.annotation.*;
  * @description:none
  */
 
-@RestController()
+@RestController
 @RequestMapping("/articles")
 @CrossOrigin
 public class ArticleController {
 
     @Autowired
     ArticleService articleService;
+    @Autowired
+    CommentService commentService;
 
     @ApiOperation("返回文章目录信息")
     @GetMapping("/catalog/{page}")
@@ -38,5 +42,26 @@ public class ArticleController {
     public String getArticlesDetailsByID(@NonNull @PathVariable Long id){
         String detailsJSON = articleService.getArticleByID(id);
         return detailsJSON;
+    }
+
+    @ApiOperation("删除文章")
+    @PostMapping("/delete/{id}")
+    public String deleteArticleByID(@NonNull @PathVariable Long id){
+        String detailsJSON = articleService.deleteArticleByID(id);
+        return detailsJSON;
+    }
+
+    @ApiOperation("根据文章id查询评论")
+    @PostMapping("/comment/{id}")
+    public String getCommentByID(@NonNull @PathVariable Long id){
+        String commentJSON = commentService.getCommentByArticleID(id);
+        return commentJSON;
+    }
+
+    @ApiOperation("添加评论")
+    @PostMapping("/comment/reply")
+    public String getCommentByID(@NonNull @RequestBody CommentDTO dto){
+        String replyStatusJSON= commentService.createComment(dto);
+        return replyStatusJSON;
     }
 }

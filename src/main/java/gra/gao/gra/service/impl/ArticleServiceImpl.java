@@ -26,6 +26,7 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
+
     @Autowired
     ArticleMapper articleMapper;
     @Autowired
@@ -84,6 +85,12 @@ public class ArticleServiceImpl implements ArticleService {
             json = JsonOperator.getStatusJson(false);
         }
         return json;
+    }
+
+    @Override
+    public String deleteArticleByID(Long id) {
+
+        return null;
     }
 
     @Override

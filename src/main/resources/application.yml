@@ -24,7 +24,7 @@ spring:
     password: gao
 logging:
   level:
-    gra.gao.gra: warn
+    gra.gao.gra.mapper: debug
     root: info
   file:
     path: ${user.home}/.gra_blog/logs

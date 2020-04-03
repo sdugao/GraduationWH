@@ -3,6 +3,7 @@ package gra.gao.gra.service.impl;
 import gra.gao.gra.dto.ArticleCatalogDTO;
 import gra.gao.gra.dto.ArticleDTO;
 import gra.gao.gra.entity.Article;
+import gra.gao.gra.exception.DataBaseException;
 import gra.gao.gra.mapper.ArticleCatalogMapper;
 import gra.gao.gra.mapper.ArticleMapper;
 import gra.gao.gra.service.ArticleService;
@@ -87,10 +88,23 @@ public class ArticleServiceImpl implements ArticleService {
         return json;
     }
 
+
     @Override
     public String deleteArticleByID(Long id) {
-
-        return null;
+        Article record = new Article();
+        record.setId(id);
+        record.setDeleted(true);
+        int items;
+        try {
+             items = articleMapper.updateByPrimaryKeySelective(record);
+        }catch (DataBaseException e){
+            items=0;
+            e.printStackTrace();
+        }
+        if(items==1){
+            return JsonOperator.getStatusJson(true);
+        }
+        return JsonOperator.getStatusJson(false);
     }
 
     @Override
@@ -105,12 +119,10 @@ public class ArticleServiceImpl implements ArticleService {
     public String getArticleByID(Long id) {
         Article article=articleMapper.selectByPrimaryKey(id);
         ArticleDTO articleDTO  =new ArticleDTO();
-        //没设置删除功能，数据库中还未加上deleted
-        /*
-         if(article.getDeleted==true){
-            return 没有
+         if(article.getDeleted()==true){
+            return JsonOperator.getStatusJson(false);
          }
-         */
+
         articleDTO.setContent(article.getContent());
         articleDTO.setG_type(article.getG_type());
         articleDTO.setId(article.getId());

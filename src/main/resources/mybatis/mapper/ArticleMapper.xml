@@ -6,9 +6,12 @@
     <result column="gmt_created" jdbcType="TIMESTAMP" property="gmt_created" />
     <result column="gmt_updated" jdbcType="TIMESTAMP" property="gmt_updated" />
     <result column="tittle" jdbcType="VARCHAR" property="tittle" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="g_type" jdbcType="VARCHAR" property="g_type" />
     <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="gra.gao.gra.entity.Article">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -40,8 +43,28 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_created, gmt_updated, tittle, content, g_type, tag
+    id, gmt_created, gmt_updated, tittle, g_type, tag, deleted
   </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="gra.gao.gra.entity.ArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from g_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="gra.gao.gra.entity.ArticleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -57,9 +80,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from g_article
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -69,10 +94,10 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Article" useGeneratedKeys="true">
     insert into g_article (gmt_created, gmt_updated, tittle, 
-      content, g_type, tag
+      g_type, tag, deleted, content
       )
     values (#{gmt_created,jdbcType=TIMESTAMP}, #{gmt_updated,jdbcType=TIMESTAMP}, #{tittle,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{g_type,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}
+      #{g_type,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="gra.gao.gra.entity.Article" useGeneratedKeys="true">
@@ -87,14 +112,17 @@
       <if test="tittle != null">
         tittle,
       </if>
-      <if test="content != null">
-        content,
-      </if>
       <if test="g_type != null">
         g_type,
       </if>
       <if test="tag != null">
         tag,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="content != null">
+        content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -107,14 +135,17 @@
       <if test="tittle != null">
         #{tittle,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
       <if test="g_type != null">
         #{g_type,jdbcType=VARCHAR},
       </if>
       <if test="tag != null">
         #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -130,16 +161,30 @@
       <if test="tittle != null">
         tittle = #{tittle,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
       <if test="g_type != null">
         g_type = #{g_type,jdbcType=VARCHAR},
       </if>
       <if test="tag != null">
         tag = #{tag,jdbcType=VARCHAR},
       </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="gra.gao.gra.entity.Article">
+    update g_article
+    set gmt_created = #{gmt_created,jdbcType=TIMESTAMP},
+      gmt_updated = #{gmt_updated,jdbcType=TIMESTAMP},
+      tittle = #{tittle,jdbcType=VARCHAR},
+      g_type = #{g_type,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT},
+      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="gra.gao.gra.entity.Article">
@@ -147,9 +192,9 @@
     set gmt_created = #{gmt_created,jdbcType=TIMESTAMP},
       gmt_updated = #{gmt_updated,jdbcType=TIMESTAMP},
       tittle = #{tittle,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
       g_type = #{g_type,jdbcType=VARCHAR},
-      tag = #{tag,jdbcType=VARCHAR}
+      tag = #{tag,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

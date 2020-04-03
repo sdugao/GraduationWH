@@ -11,21 +11,13 @@ public class Article {
 
     private String tittle;
 
-    private String content;
-
     private String g_type;
 
     private String tag;
 
     private Boolean deleted;
 
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
+    private String content;
 
     public Long getId() {
         return id;
@@ -59,14 +51,6 @@ public class Article {
         this.tittle = tittle;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getG_type() {
         return g_type;
     }
@@ -83,6 +67,22 @@ public class Article {
         this.tag = tag;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -93,9 +93,10 @@ public class Article {
         sb.append(", gmt_created=").append(gmt_created);
         sb.append(", gmt_updated=").append(gmt_updated);
         sb.append(", tittle=").append(tittle);
-        sb.append(", content=").append(content);
         sb.append(", g_type=").append(g_type);
         sb.append(", tag=").append(tag);
+        sb.append(", deleted=").append(deleted);
+        sb.append(", content=").append(content);
         sb.append("]");
         return sb.toString();
     }

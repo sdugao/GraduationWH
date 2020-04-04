@@ -76,4 +76,30 @@ public class AdminController {
         String status = articleService.updateArticle(articleDTO);
         return status;
     }
+
+
+    @ApiOperation("删除文章")
+    @PostMapping("articles/delete/{id}")
+    public String deleteArticleByID(@NonNull @PathVariable Long id){
+        String detailsJSON = articleService.deleteArticleByID(id);
+        return detailsJSON;
+    }
+
+
+    @ApiOperation("恢复文章")
+    @PostMapping("articles/recover/{id}")
+    public String recoverArticleByID(@NonNull @PathVariable Long id){
+        String detailsJSON = articleService.recoverArticleByID(id);
+        return detailsJSON;
+    }
+
+    @ApiOperation("返回垃圾桶文章目录信息")
+    @GetMapping("articles/catalog/{page}")
+    public String getArticlesCatalogFromBinByPage(@PathVariable Integer page){
+        if(page==null){
+            page = Integer.valueOf(1);
+        }
+        String catalogJSON = articleService.getArticleCatalogFromBin(page);
+        return catalogJSON;
+    }
 }

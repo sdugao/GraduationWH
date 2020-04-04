@@ -26,7 +26,8 @@ public class ArticleController {
     @Autowired
     CommentService commentService;
 
-    @ApiOperation("返回文章目录信息")
+
+    @ApiOperation("返回回收站文章目录信息")
     @GetMapping("/catalog/{page}")
     public String getArticlesCatalogByPage(@PathVariable Integer page){
         if(page==null){
@@ -36,7 +37,6 @@ public class ArticleController {
         return catalogJSON;
     }
 
-
     @ApiOperation("返回具体文章详细信息")
     @PostMapping("/details/{id}")
     public String getArticlesDetailsByID(@NonNull @PathVariable Long id){
@@ -44,12 +44,6 @@ public class ArticleController {
         return detailsJSON;
     }
 
-    @ApiOperation("删除文章")
-    @PostMapping("/delete/{id}")
-    public String deleteArticleByID(@NonNull @PathVariable Long id){
-        String detailsJSON = articleService.deleteArticleByID(id);
-        return detailsJSON;
-    }
 
     @ApiOperation("根据文章id查询评论")
     @PostMapping("/comment/{id}")

@@ -132,4 +132,31 @@ public class ArticleServiceImpl implements ArticleService {
         String json=JsonOperator.getMSGJson(articleDTO,CommonCode.SUCCESS);
         return json;
     }
+
+    @Override
+    public String getArticleCatalogFromBin(Integer pages) {
+        pages--;
+        List<ArticleCatalogDTO> list = articleCatalogMapper.selectCatalogFromBinByPage(pages, CommonConst.ArticleCatalogEveryPage);
+        String json= JsonOperator.getMSGJson(list, CommonCode.SUCCESS);
+        return json;
+    }
+
+    @Override
+    public String recoverArticleByID(Long id) {
+        Article record = new Article();
+        record.setId(id);
+        record.setDeleted(false);
+        int items;
+        try {
+            items = articleMapper.updateByPrimaryKeySelective(record);
+        }catch (DataBaseException e){
+            items=0;
+            e.printStackTrace();
+        }
+        if(items==1){
+            return JsonOperator.getStatusJson(true);
+        }
+        return JsonOperator.getStatusJson(false);
+    }
+
 }

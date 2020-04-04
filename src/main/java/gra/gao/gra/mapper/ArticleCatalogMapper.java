@@ -20,4 +20,8 @@ public interface ArticleCatalogMapper {
 
     @Select("select id,tittle,gmt_updated from g_article where deleted != 1 limit #{start}, #{items} ")
     public List<ArticleCatalogDTO> selectCatalogByPage(@Param("start") Integer start,@Param("items") Integer items);
+
+    @Select("select id,tittle,gmt_updated from g_article where deleted == 1 limit #{start}, #{items} ")
+    public List<ArticleCatalogDTO> selectCatalogFromBinByPage(@Param("start") Integer start,@Param("items") Integer items);
+
 }

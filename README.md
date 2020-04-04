@@ -21,6 +21,14 @@
 
 管理员创建文章 /admin/articles/write
 
+管理员删除文章 /admin/articles/delete/{id}
+
+管理员查看文章回收站目录 /admin/articles/catalog/{page}
+
+管理员恢复回收站文章 /admin/articles/recover/{id}
+
+管理员删除文章 /admin/articles/delete/{id}
+
 ##使用了Mybatis-generator
 ##使用了Swagger
 

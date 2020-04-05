@@ -4,6 +4,7 @@ import gra.gao.gra.dto.GuestDTO;
 import gra.gao.gra.service.GuestService;
 import gra.gao.gra.common.CommonConst;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description:none
  */
 
+//@Component
 public class GuestLoginInterceptor implements HandlerInterceptor {
 
     @Autowired

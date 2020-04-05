@@ -1,15 +1,22 @@
 package gra.gao.gra.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import gra.gao.gra.dto.ArticleCatalogDTO;
 import gra.gao.gra.dto.ArticleDTO;
 import gra.gao.gra.entity.Article;
+import gra.gao.gra.entity.Comment;
+import gra.gao.gra.entity.CommentExample;
+import gra.gao.gra.entity.Visit;
 import gra.gao.gra.exception.DataBaseException;
 import gra.gao.gra.mapper.ArticleCatalogMapper;
 import gra.gao.gra.mapper.ArticleMapper;
+import gra.gao.gra.mapper.CommentMapper;
+import gra.gao.gra.mapper.VisitMapper;
 import gra.gao.gra.service.ArticleService;
 import gra.gao.gra.common.CommonCode;
 import gra.gao.gra.common.CommonConst;
 import gra.gao.gra.common.JsonOperator;
+import gra.gao.gra.util.GmtTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +39,9 @@ public class ArticleServiceImpl implements ArticleService {
     ArticleMapper articleMapper;
     @Autowired
     ArticleCatalogMapper articleCatalogMapper;
+    @Autowired
+    CommentMapper commentMapper;
+
 
     @Override
     public String writeArticle(ArticleDTO articleDTO) {
@@ -109,6 +119,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public String getArticleCatalog(Integer pages) {
+
         pages--;
         List<ArticleCatalogDTO> list = articleCatalogMapper.selectCatalogByPage(pages, CommonConst.ArticleCatalogEveryPage);
         String json= JsonOperator.getMSGJson(list, CommonCode.SUCCESS);
@@ -157,6 +168,25 @@ public class ArticleServiceImpl implements ArticleService {
             return JsonOperator.getStatusJson(true);
         }
         return JsonOperator.getStatusJson(false);
+    }
+
+    @Override
+    public String getTodayCommentsCount() {
+        CommentExample ce = new CommentExample();
+        CommentExample.Criteria cec = ce.createCriteria();
+        Date zero = GmtTime.getTodayZeroClock();
+        cec.andGmt_updatedBetween(zero,new Date());
+        int code=CommonCode.ERROR;
+        int nums=0;
+        try {
+            List<Comment> list_comment = commentMapper.selectByExample(ce);
+            code=CommonCode.SUCCESS;
+            nums=list_comment.size();
+        }catch (DataBaseException e){
+            e.printStackTrace();
+        }
+        String json = JsonOperator.getMSGJson(Integer.valueOf(nums),code);
+        return json;
     }
 
 }

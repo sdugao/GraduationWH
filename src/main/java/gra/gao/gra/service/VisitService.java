@@ -9,4 +9,6 @@ package gra.gao.gra.service;
  */
 
 public interface VisitService {
+
+    public String getVisitToday();
 }

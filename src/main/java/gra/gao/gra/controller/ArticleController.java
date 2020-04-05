@@ -27,7 +27,7 @@ public class ArticleController {
     CommentService commentService;
 
 
-    @ApiOperation("返回回收站文章目录信息")
+    @ApiOperation("返回文章目录信息")
     @GetMapping("/catalog/{page}")
     public String getArticlesCatalogByPage(@PathVariable Integer page){
         if(page==null){
@@ -58,4 +58,6 @@ public class ArticleController {
         String replyStatusJSON= commentService.createComment(dto);
         return replyStatusJSON;
     }
+
+
 }

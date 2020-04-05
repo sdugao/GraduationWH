@@ -29,6 +29,10 @@
 
 管理员删除文章 /admin/articles/delete/{id}
 
+统计今日访问人数 /admin/visit/today
+
+统计今日访问人数 /admin/articles/comment/today
+
 ##使用了Mybatis-generator
 ##使用了Swagger
 

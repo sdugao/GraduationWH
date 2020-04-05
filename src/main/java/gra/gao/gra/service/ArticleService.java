@@ -11,4 +11,5 @@ public interface ArticleService {
     public String getArticleByID(Long id);
     public String getArticleCatalogFromBin(Integer pages);
     public String recoverArticleByID(Long id);
+    public String getTodayCommentsCount();
 }

@@ -3,6 +3,7 @@ package gra.gao.gra.controller;
 import com.alibaba.fastjson.JSON;
 import gra.gao.gra.dto.AdminDTO;
 import gra.gao.gra.dto.ArticleDTO;
+import gra.gao.gra.dto.CommentDTO;
 import gra.gao.gra.service.AdminService;
 import gra.gao.gra.service.ArticleService;
 import gra.gao.gra.common.CommonCode;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController()
 @RequestMapping("/admin")
+@CrossOrigin
 public class AdminController {
 
     @Autowired
@@ -102,4 +104,12 @@ public class AdminController {
         String catalogJSON = articleService.getArticleCatalogFromBin(page);
         return catalogJSON;
     }
+
+    @ApiOperation("获取今日评论数")
+    @PostMapping("/articles/comment/today")
+    public String getTodayCommentsCount(){
+        String countJSON= articleService.getTodayCommentsCount();
+        return countJSON;
+    }
+
 }

@@ -1,10 +1,7 @@
 package gra.gao.gra.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author:gao
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 @RequestMapping("guest")
+@CrossOrigin
 public class GuestController {
 
     @ApiOperation("返回用户登录信息")

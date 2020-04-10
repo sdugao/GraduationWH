@@ -25,8 +25,8 @@ public class JsonOperator {
             cJson.setCode(CommonCode.SUCCESS);
             cJson.setMessage("success");
         }else{
-            cJson.setCode(CommonCode.SUCCESS);
-            cJson.setMessage("success");
+            cJson.setCode(CommonCode.ERROR);
+            cJson.setMessage("failure");
         }
         json = JSON.toJSONString(cJson);
         return json;

@@ -26,9 +26,9 @@ public class WebConfig implements WebMvcConfigurer {
         //拦截全部请求，做访问统计
         registry.addInterceptor(visitInterceptor).excludePathPatterns("/admin/**").addPathPatterns("/");
         //拦截访问后台的接口
-//        registry.addInterceptor(new AdminLoginInterceptor())
-//                    .excludePathPatterns("/admin/login")
-//                    .addPathPatterns("/admin/**");
+        registry.addInterceptor(new AdminLoginInterceptor())
+                    .excludePathPatterns("/admin/login")
+                    .addPathPatterns("/admin/**");
     }
 
     @Override

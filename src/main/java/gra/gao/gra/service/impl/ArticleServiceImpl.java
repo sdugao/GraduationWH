@@ -60,7 +60,9 @@ public class ArticleServiceImpl implements ArticleService {
         }catch (Exception e){
             i=0;
             e.printStackTrace();
+            //System.out.println("I:  "+i);
         }
+
         String json;
         if(i==1){
             json= JsonOperator.getStatusJson(true);
@@ -68,6 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
         else{
             json = JsonOperator.getStatusJson(false);
         }
+        //System.out.println(json);
         return json;
     }
 

@@ -26,12 +26,20 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     //检查是否管理员是否登录
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("进入拦截器");
+        System.out.println("进入管理员登录拦截器");
         AdminDTO adminDTO = (AdminDTO) request.getSession().getAttribute(CommonConst.AdminAttribute);
+        String url = request.getRequestURI();
+        if(adminDTO==null){
+
+            System.out.println("拦截："+url);
+            return  false;
+        }
         boolean flag= adminService.determineAdminLogin(adminDTO);
         if(flag==false){
-            String url = request.getRequestURI();
             System.out.println("拦截："+url);
+        }
+        else{
+            System.out.println("放行："+url);
         }
         return flag;
     }

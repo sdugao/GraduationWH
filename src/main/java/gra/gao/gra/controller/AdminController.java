@@ -50,18 +50,14 @@ public class AdminController {
             dto.setPassword(null);
             dto.setUUID(uuid);
             request.getSession().setAttribute(CommonConst.AdminAttribute,dto);
+            request.getSession().setMaxInactiveInterval(60 * 60 * 24);
+            System.out.println(request.getSession().getAttribute(CommonConst.AdminAttribute));
             CommonJson commonJson = new CommonJson();
             commonJson.setMessage("登录成功！");
             commonJson.setCode(CommonCode.SUCCESS);
             json = JSON.toJSONString(commonJson);
         }
         return json;
-    }
-
-    @ApiOperation("返回管理员主页信息")
-    @PostMapping("/homepage")
-    public String getHomepage(){
-        return null;
     }
 
     @ApiOperation("返回管理员创建文章信息")
@@ -96,7 +92,7 @@ public class AdminController {
     }
 
     @ApiOperation("返回垃圾桶文章目录信息")
-    @GetMapping("articles/catalog/{page}")
+    @GetMapping("articles/bin/catalog/{page}")
     public String getArticlesCatalogFromBinByPage(@PathVariable Integer page){
         if(page==null){
             page = Integer.valueOf(1);

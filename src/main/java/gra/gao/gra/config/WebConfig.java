@@ -3,11 +3,9 @@ package gra.gao.gra.config;
 import gra.gao.gra.interceptor.AdminLoginInterceptor;
 import gra.gao.gra.interceptor.VisitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  * @author:gao
@@ -19,14 +17,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Autowired
-    VisitInterceptor visitInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截全部请求，做访问统计
-        registry.addInterceptor(visitInterceptor).excludePathPatterns("/admin/**").addPathPatterns("/");
+        registry.addInterceptor(getVI()).excludePathPatterns("/admin/**").addPathPatterns("/**/*.html");
         //拦截访问后台的接口
-        registry.addInterceptor(new AdminLoginInterceptor())
+        registry.addInterceptor(getALI())
                     .excludePathPatterns("/admin/login")
                     .addPathPatterns("/admin/**");
     }
@@ -37,6 +34,23 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("/html/atcCatalog.html");
     }
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("POST", "GET")
+                .maxAge(30*60)
+                .allowCredentials(true);//设置成允许操作cookie
+    }
 
+    @Bean
+    public AdminLoginInterceptor getALI(){
+        return new AdminLoginInterceptor();
+    }
+
+    @Bean
+    public VisitInterceptor getVI(){
+        return new VisitInterceptor();
+    }
 }
 

@@ -13,6 +13,6 @@ import lombok.Data;
 @Data
 public class AdminDTO {
     private String username;
-    private String UUID;
+    //private String UUID;
     private String password;
 }

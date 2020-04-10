@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,14 +28,24 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("进入管理员登录拦截器");
-        AdminDTO adminDTO = (AdminDTO) request.getSession().getAttribute(CommonConst.AdminAttribute);
+        //AdminDTO adminDTO = (AdminDTO) request.getSession().getAttribute(CommonConst.AdminAttribute);
         String url = request.getRequestURI();
-        if(adminDTO==null){
+        String  uuid=null;
+        Cookie[] cookies =request.getCookies();
+        if(cookies==null){
+            System.out.println("拦截："+url);
+            return  false;
+        }
+         for(Cookie cookie :cookies){
+             if(cookie.getName().equals(CommonConst.AdminCookie))
+                 uuid = cookie.getValue();
+         }
+        if(uuid==null){
 
             System.out.println("拦截："+url);
             return  false;
         }
-        boolean flag= adminService.determineAdminLogin(adminDTO);
+        boolean flag= adminService.determineAdminLogin(uuid);
         if(flag==false){
             System.out.println("拦截："+url);
         }

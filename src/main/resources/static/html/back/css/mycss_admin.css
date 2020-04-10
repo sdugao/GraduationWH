@@ -1,0 +1,22 @@
+.my-btn-write-submit{
+    background-color: #48b0f7;
+    border-color: #48b0f7;
+    color: #fff!important;
+    padding: 8px 12px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    transition: 0.15s linear;
+    width: 120px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    float:right
+}
+
+.my-btn-write-submit:hover{
+    background-color: royalblue;
+}

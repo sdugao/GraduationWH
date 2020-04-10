@@ -9,8 +9,8 @@ package gra.gao.gra.common;
  */
 
 public class CommonConst {
-    public final static String AdminAttribute = "gao_admin";
-    public final static String GuestAttribute = "gao_guest";
+    public final static String AdminCookie = "gao_admin";
+    public final static String GuestCookie = "gao_guest";
     public final static String AdminUsernameFront = "gf";
     public final static String AdminUsernameBack = "gb";
     public final static String GuestUsernameFront = "cf";

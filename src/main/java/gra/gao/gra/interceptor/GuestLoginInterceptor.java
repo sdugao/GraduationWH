@@ -27,7 +27,7 @@ public class GuestLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("进入拦截器");
-        GuestDTO guestDTO = (GuestDTO) request.getSession().getAttribute(CommonConst.GuestAttribute);
+        GuestDTO guestDTO = (GuestDTO) request.getSession().getAttribute(CommonConst.GuestCookie);
         boolean flag= guestService.determineGuestLogin(guestDTO);
         if(flag==false){
             String url = request.getRequestURI();

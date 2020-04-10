@@ -26,22 +26,14 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     AdminMapper adminMapper;
 
-    public boolean determineAdminLogin(@NonNull AdminDTO pAdminDTO){
-        Admin admin = adminMapper.selectByPrimaryKey(Long.getLong("1"));
+    public boolean determineAdminLogin(@NonNull String uuid){
+        Admin admin = adminMapper.selectByPrimaryKey(Long.valueOf(1));
         if(admin==null){
             throw new DataBaseException("Admin返回为空！");
         }
-        AdminDTO adminDTO=new AdminDTO();
-        //加上混淆
-        adminDTO.setUsername(CommonConst.AdminUsernameFront +admin.getUsername()+ CommonConst.AdminUsernameBack);
-        String uuid=admin.getG_uuid();
-        adminDTO.setUUID(uuid);
 
         boolean flag=false;
-        if(adminDTO!=null&&adminDTO.getUsername().equals(pAdminDTO.getUsername())&&
-            adminDTO.getUUID().equals(pAdminDTO.getUUID())){
-                flag=true;
-        }
+        if(uuid.equals(admin.getG_uuid())) flag=true;
         return flag;
 
     }

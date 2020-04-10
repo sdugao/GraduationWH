@@ -14,7 +14,9 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author:gao
@@ -36,7 +38,7 @@ public class AdminController {
 
     @ApiOperation("返回管理员登录信息")
     @PostMapping("/login")
-    public String adminLogin(@NonNull @RequestBody AdminDTO dto, HttpServletRequest request){
+    public String adminLogin(@NonNull @RequestBody AdminDTO dto, HttpServletResponse response){
 
         String uuid = adminService.adminLogin(dto);
         String json;
@@ -46,12 +48,18 @@ public class AdminController {
             commonJson.setCode(CommonCode.ERROR);
             json = JSON.toJSONString(commonJson);
         }else {
-            dto.setUsername(CommonConst.AdminUsernameFront+dto.getUsername()+CommonConst.AdminUsernameBack);
-            dto.setPassword(null);
-            dto.setUUID(uuid);
-            request.getSession().setAttribute(CommonConst.AdminAttribute,dto);
-            request.getSession().setMaxInactiveInterval(60 * 60 * 24);
-            System.out.println(request.getSession().getAttribute(CommonConst.AdminAttribute));
+//            dto.setUsername(CommonConst.AdminUsernameFront+dto.getUsername()+CommonConst.AdminUsernameBack);
+//            dto.setPassword(null);
+//            dto.setUUID(uuid);
+//            request.getSession().setAttribute(CommonConst.AdminAttribute,dto);
+//            request.getSession().setMaxInactiveInterval(60 * 60 * 24);
+//            System.out.println(request.getSession().getAttribute(CommonConst.AdminAttribute));
+            //设置token
+            Cookie cookie = new Cookie(CommonConst.AdminCookie,uuid);
+            cookie.setMaxAge(60*60*1);//一小时
+            cookie.setPath("/");
+            //cookie.setDomain("localhost");
+            response.addCookie(cookie);
             CommonJson commonJson = new CommonJson();
             commonJson.setMessage("登录成功！");
             commonJson.setCode(CommonCode.SUCCESS);

@@ -116,4 +116,16 @@ public class AdminController {
         return countJSON;
     }
 
+    @ApiOperation("注销登录")
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response){
+
+        Cookie cookie = new Cookie(CommonConst.AdminCookie,"");
+        cookie.setMaxAge(0);//一小时
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        //清空数据库的uuid
+        String json =adminService.clearUUID();
+        return json;
+    }
 }

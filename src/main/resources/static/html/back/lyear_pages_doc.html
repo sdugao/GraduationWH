@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>文档列表 - 光年(Light Year Admin)后台管理系统模板</title>
+
+<title>文章列表</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
 <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
 <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
@@ -11,6 +12,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/materialdesignicons.min.css" rel="stylesheet">
 <link href="css/style.min.css" rel="stylesheet">
+<link rel="stylesheet" href="js/jconfirm/jquery-confirm.min.css">
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -18,23 +20,23 @@
 <script type="text/javascript" src="js/lightyear.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
 </head>
-  
+
 <body>
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
     <!--左侧导航-->
     <aside class="lyear-layout-sidebar">
-      
+
       <!-- logo -->
       <div id="logo" class="sidebar-header">
         <a href="index.html"><img src="images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
       </div>
-      <div class="lyear-layout-sidebar-scroll"> 
-        
+      <div class="lyear-layout-sidebar-scroll">
+
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
             <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
-     
+
             <li class="nav-item nav-item-has-subnav">
               <a href="javascript:void(0)"><i class="mdi mdi-pencil"></i> 文章</a>
               <ul class="nav nav-subnav">
@@ -44,14 +46,14 @@
             </li>
             <li class="nav-item nav-item-has-subnav">
               <a href="javascript:void(0)"><i class="mdi mdi-cup"></i>回收站</a>
-              <ul class="nav nav-subnav"> 
+              <ul class="nav nav-subnav">
                 <li> <a href="bin_list.html">回收站列表</a> </li>
                 <li> <a href="#">清空回收站</a> </li>
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
               <a href="javascript:void(0)"><i class="mdi mdi-content-save"></i> 记事本</a>
-              <ul class="nav nav-subnav"> 
+              <ul class="nav nav-subnav">
                 <li> <a href="lyear_pages_doc.html">随手记</a> </li>
                 <li> <a href="lyear_forms_radio.html">清空记事本</a> </li>
               </ul>
@@ -60,7 +62,7 @@
               <a href="javascript:void(0)"><i class="mdi mdi-menu"></i> 其他设置</a>
               <ul class="nav nav-subnav">
                 <li> <a href="#!">个人信息设置</a> </li>
-                <li class="nav-item nav-item-has-subnav"> 
+                <li class="nav-item nav-item-has-subnav">
                   <a href="#!">修改密码</a>
                 </li>
 
@@ -76,21 +78,21 @@
             </li>
           </ul>
         </nav>
-        
+
         <div class="sidebar-footer">
           <p class="copyright">Copyright &copy; 2019. <a target="_blank" href="http://lyear.itshubao.com">IT书包</a> All rights reserved.</p>
         </div>
       </div>
-      
+
     </aside>
     <!--End 左侧导航-->
-    
+
     <!--头部信息-->
     <header class="lyear-layout-header">
-      
+
       <nav class="navbar navbar-default">
         <div class="topbar">
-          
+
           <div class="topbar-left">
             <div class="lyear-aside-toggler">
               <span class="lyear-toggler-bar"></span>
@@ -99,7 +101,7 @@
             </div>
             <span class="navbar-page-title"> 示例页面 - 文档列表 </span>
           </div>
-          
+
           <ul class="topbar-right">
             <li class="dropdown dropdown-profile">
               <a href="javascript:void(0)" data-toggle="dropdown">
@@ -172,29 +174,29 @@
 				<li class="drop-skin-li clearfix">
                   <span class="inverse">
                     <input type="radio" name="header_bg" value="default" id="header_bg_1" checked>
-                    <label for="header_bg_1"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_1"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_2" id="header_bg_2">
-                    <label for="header_bg_2"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_2"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_3" id="header_bg_3">
                     <label for="header_bg_3"></label>
                   </span>
                   <span>
                     <input type="radio" name="header_bg" value="color_4" id="header_bg_4">
-                    <label for="header_bg_4"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_4"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_5" id="header_bg_5">
-                    <label for="header_bg_5"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_5"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_6" id="header_bg_6">
-                    <label for="header_bg_6"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_6"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_7" id="header_bg_7">
                     <label for="header_bg_7"></label>
                   </span>
@@ -242,18 +244,18 @@
 			</li>
             <!--切换主题配色-->
           </ul>
-          
+
         </div>
       </nav>
-      
+
     </header>
     <!--End 头部信息-->
-    
+
     <!--页面主要内容-->
     <main class="lyear-layout-content">
-      
+
       <div class="container-fluid">
-        
+
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
@@ -274,14 +276,14 @@
                   </div>
                 </form>
                 <div class="toolbar-btn-action">
-                  <a class="btn btn-primary m-r-5" href="#!"><i class="mdi mdi-plus"></i> 新增</a>
+                  <a class="btn btn-primary m-r-5" href="write_article.html"><i class="mdi mdi-plus"></i> 新增</a>
                   <a class="btn btn-success m-r-5" href="#!"><i class="mdi mdi-pencil"></i> 修改</a>
-                  <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
+                  <a class="btn btn-danger" id="delete_btn"><i class="mdi mdi-window-close" ></i> 删除</a>
                 </div>
               </div>
-              <div class="card-body">
-                
-                <div class="table-responsive" id="cata_list">
+              <div class="card-body"  id="cata_list">
+
+                <div class="table-responsive" >
                   <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -302,7 +304,7 @@
                       <tr v-for="cata in catalist">
                         <td>
                           <label class="lyear-checkbox checkbox-primary">
-                            <input type="checkbox" name="ids[]" value="1"><span></span>
+                            <input type="checkbox"  :value="cata.id" v-model="checkbox_selected_vector">&nbsp<span></span>
                           </label>
                         </td>
                         <td>{{cata.id}}</td>
@@ -321,32 +323,32 @@
                   </table>
                 </div>
                 <ul class="pagination">
-                  <li class="disabled"><span>«</span></li>
-                  <li class="active"><span>1</span></li>
-                  <li><a href="#1">2</a></li>
-                  
-                  <li class="disabled"><span>...</span></li>
-                  <li><a href="#!">14452</a></li>
-                  <li><a href="#!">14453</a></li>
-                  <li><a href="#!">»</a></li>
+                  <li class="first_page" @click="cur_page=1,channgePage()" v-if="cur_page!=1"><a>第一页</a></li>
+                  <li  @click="cur_page--,channgePage()" v-if="cur_page>1"><span>«</span></li>
+                  <li class="active"><span>{{cur_page}}</span></li>
+                  <li><a @click="cur_page++,channgePage()" v-if="total_page>cur_page">{{cur_page+1}}</a></li>
+                  <li class="disabled" v-if="total_page-cur_page>2"><span>...</span></li>
+                  <li><a @click="cur_page=total_page-1,channgePage()" v-if="total_page-cur_page>2">{{total_page-1}}</a></li>
+                  <li  @click="cur_page++,channgePage()" v-if="total_page>cur_page"><a>»</a></li>
+                  <li class="lastest_page" @click="cur_page=total_page,channgePage()" v-if="cur_page!=total_page"><a>最后一页</a></li>
                 </ul>
-       
+
               </div>
             </div>
           </div>
-          
+
         </div>
-        
+
       </div>
-      
+
     </main>
     <!--End 页面主要内容-->
   </div>
 </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+<script src="js/jconfirm/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -358,20 +360,97 @@ $(function(){
 });
 </script>
 
+<script>
+$('#delete_btn').on('click', function () {
+            $.alert({
+            title: '提示',
+        content: '确定删除吗？',
+		buttons: {
+			confirm: {
+				text: '确认',
+				btnClass: 'btn-primary',
+				action: function(){
+                    //$.alert('你点击了确认!');
+                    vm.deleteArticles();
+				}
+			},
+			cancel: {
+				text: '取消',
+				action: function () {
+                    return ;
+				    }
+			    }
+		    }
+         });
+      });
+
+</script>
+
+
 <!--for打印目录列表-->
 <script>
     var vm = new Vue({
   el: '#cata_list',
   data:{
     code:0,
-    catalist:[]
+    catalist:[],
+    cur_page :1,
+    total_page:0,
+    checkbox_selected_vector:[],
   },
   methods:{
         load:function(){
           $.ajax({
                   type: 'get',
                   sync: false,
-                  url:  'http://localhost:8848/articles/catalog/1',
+                  url:  'http://localhost:8848/articles/catalog/'+vm.cur_page,
+                  contentType: 'application/json;charset=UTF-8',
+                  dataType: 'json',
+                  success: function (result) {
+                      //console.log(result.code);
+                  vm.code = result.code;
+                  if(vm.code==200){
+                    vm.catalist = result.message;
+                  }
+                  else{
+                    vm.catalist=[];
+                  }
+              }
+          }),
+
+          $.ajax({
+                  type: 'post',
+                  sync: false,
+                  url:  'http://localhost:8848/articles/catalog/pagenum',
+                  contentType: 'application/json;charset=UTF-8',
+                  dataType: 'json',
+                  success: function (result) {
+                      //console.log(result.code);
+                  vm.code = result.code;
+                  if(vm.code==200){
+                    vm.total_page = result.message;
+                  }
+                  else{
+                    vm.total_page=0;
+                  }
+              }
+          })
+
+        },
+
+        channgePage:function(){
+          if(vm.cur_page<=0) {
+            vm.cur_page=1;
+            return;
+          }
+          if(vm.cur_page>vm.total_page){
+            vm.cur_page=vm.total_page;
+            return ;
+          }
+          $.ajax({
+                  type: 'get',
+                  sync: false,
+                  url:  'http://localhost:8848/articles/catalog/'+vm.cur_page,
                   contentType: 'application/json;charset=UTF-8',
                   dataType: 'json',
                   success: function (result) {
@@ -385,9 +464,37 @@ $(function(){
                   }
               }
           })
+        },
 
+        deleteArticles:function(){
+for(i=0,len=vm.checkbox_selected_vector.length;i<len;i++){
+          var id = vm.checkbox_selected_vector[i];
+          $.ajax({
+                  type: 'post',
+                  sync: false,
+                  url:  'http://localhost:8848/admin/articles/delete/'+id,
+                  contentType: 'application/json;charset=UTF-8',
+                  dataType: 'json',
+                  success: function (result) {
+                      //console.log(result.code);
+                  vm.code = result.code;
+                  if(vm.code!=200){
+                    lightyear.notify('删除失败', 'danger', 1000, 'mdi mdi-emoticon-sad', 'top', 'center');
+                  }
+              }
+          });
         }
-
+        if(vm.code==200){
+                    //vm.catalist = result.message;
+                    lightyear.notify('删除成功', 'success', 1000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                  }
+                  else{
+                    //vm.catalist=[];
+                    lightyear.notify('删除失败', 'danger', 1000, 'mdi mdi-emoticon-sad', 'top', 'center');
+                  }
+                  vm.cur_page=1;//这个地方可能数据库并发问题，删除不会自动换页
+                  vm.channgePage();
+        }
       }
     })
 

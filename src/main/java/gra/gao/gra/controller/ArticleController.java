@@ -60,4 +60,10 @@ public class ArticleController {
     }
 
 
+    @ApiOperation("文章页数")
+    @PostMapping("/catalog/pagenum")
+    public String getCatalogPageNum(){
+        String JSON= articleService.getCatalogPageNum();
+        return JSON;
+    }
 }

@@ -36,7 +36,7 @@ public class VisitInterceptor implements HandlerInterceptor {
         log.setOperated_by("none");
         log.setUrl(request.getRequestURI());
         log.setIp(request.getRemoteAddr());
-        System.out.println("拦截："+log.toString());
+        System.out.println("访问："+log.toString());
         logMapper.insert(log);
         return true;
     }

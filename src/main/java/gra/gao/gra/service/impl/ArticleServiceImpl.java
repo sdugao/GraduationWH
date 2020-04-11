@@ -1,6 +1,7 @@
 package gra.gao.gra.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import gra.gao.gra.common.CommonJson;
 import gra.gao.gra.dto.ArticleCatalogDTO;
 import gra.gao.gra.dto.ArticleDTO;
 import gra.gao.gra.entity.Article;
@@ -124,7 +125,7 @@ public class ArticleServiceImpl implements ArticleService {
     public String getArticleCatalog(Integer pages) {
 
         pages--;
-        List<ArticleCatalogDTO> list = articleCatalogMapper.selectCatalogByPage(pages, CommonConst.ArticleCatalogEveryPage);
+        List<ArticleCatalogDTO> list = articleCatalogMapper.selectCatalogByPage(pages*CommonConst.ArticleCatalogEveryPage, CommonConst.ArticleCatalogEveryPage);
         String json= JsonOperator.getMSGJson(list, CommonCode.SUCCESS);
         return json;
     }
@@ -189,6 +190,29 @@ public class ArticleServiceImpl implements ArticleService {
             e.printStackTrace();
         }
         String json = JsonOperator.getMSGJson(Integer.valueOf(nums),code);
+        return json;
+    }
+
+    @Override
+    public String getCatalogPageNum() {
+
+        Integer pageNum;
+        try {
+            pageNum=articleCatalogMapper.selectArticleNum();
+        }catch (DataBaseException e){
+            e.printStackTrace();
+            pageNum=-1;
+        }
+        String json;
+        if(pageNum!=-1){
+            pageNum--;
+            pageNum/=CommonConst.ArticleCatalogEveryPage;
+            pageNum++;
+            json=JsonOperator.getMSGJson(pageNum, CommonCode.SUCCESS);
+        }
+        else{
+            json=JsonOperator.getMSGJson(pageNum, CommonCode.ERROR);
+        }
         return json;
     }
 

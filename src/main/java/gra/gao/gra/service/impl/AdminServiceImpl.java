@@ -1,5 +1,6 @@
 package gra.gao.gra.service.impl;
 
+import gra.gao.gra.common.JsonOperator;
 import gra.gao.gra.exception.DataBaseException;
 import gra.gao.gra.dto.AdminDTO;
 import gra.gao.gra.entity.Admin;
@@ -26,14 +27,14 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     AdminMapper adminMapper;
 
-    public boolean determineAdminLogin(@NonNull String uuid){
+    public boolean determineAdminLogin(@NonNull String uuid) {
         Admin admin = adminMapper.selectByPrimaryKey(Long.valueOf(1));
-        if(admin==null){
+        if (admin == null) {
             throw new DataBaseException("Admin返回为空！");
         }
 
-        boolean flag=false;
-        if(uuid.equals(admin.getG_uuid())) flag=true;
+        boolean flag = false;
+        if (uuid.equals(admin.getG_uuid())) flag = true;
         return flag;
 
     }
@@ -41,8 +42,8 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public String adminLogin(@NonNull AdminDTO adminDTO) {
         Admin admin = adminMapper.selectByPrimaryKey(Long.valueOf(1));
-        if(admin!=null&&admin.getUsername().equals(adminDTO.getUsername())&&
-            admin.getG_password().equals(adminDTO.getPassword())){
+        if (admin != null && admin.getUsername().equals(adminDTO.getUsername()) &&
+                admin.getG_password().equals(adminDTO.getPassword())) {
             String uuid = UUID.randomUUID().toString();
             admin.setG_password(null);
             admin.setG_uuid(uuid);
@@ -53,6 +54,24 @@ public class AdminServiceImpl implements AdminService {
             return uuid;
         }
         return null;
+    }
+
+    @Override
+    public String clearUUID() {
+        Admin admin =new Admin();
+        admin.setId(Long.valueOf(1));
+        admin.setG_uuid("");
+        int i=-1;
+        try {
+            i=adminMapper.updateByPrimaryKeySelective(admin);
+        }catch (DataBaseException e){
+            e.printStackTrace();
+            i=-1;
+        }
+        if(i==1){
+            return JsonOperator.getStatusJson(true);
+        }
+        return JsonOperator.getStatusJson(false);
     }
 }
 

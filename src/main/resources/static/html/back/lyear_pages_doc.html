@@ -277,7 +277,6 @@
                 </form>
                 <div class="toolbar-btn-action">
                   <a class="btn btn-primary m-r-5" href="write_article.html"><i class="mdi mdi-plus"></i> 新增</a>
-                  <a class="btn btn-success m-r-5" href="#!"><i class="mdi mdi-pencil"></i> 修改</a>
                   <a class="btn btn-danger" id="delete_btn"><i class="mdi mdi-window-close" ></i> 删除</a>
                 </div>
               </div>
@@ -308,7 +307,7 @@
                           </label>
                         </td>
                         <td>{{cata.id}}</td>
-                        <td><a href="#">{{cata.tittle}}</a></td>
+                        <td><a :href="'./update_article.html?id='+cata.id">{{cata.tittle}}</a></td>
                         <td>66</td>
                         <td>66</td>
                         <td><font class="text-success">正常</font></td>

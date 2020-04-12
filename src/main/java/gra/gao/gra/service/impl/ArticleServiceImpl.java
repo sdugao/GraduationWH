@@ -149,6 +149,21 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public String getArticleByIDForAdmin(Long id) {
+        Article article=articleMapper.selectByPrimaryKey(id);
+        ArticleDTO articleDTO  =new ArticleDTO();
+        articleDTO.setContent(article.getContent());
+        articleDTO.setG_type(article.getG_type());
+        articleDTO.setId(article.getId());
+        articleDTO.setTag(article.getTag());
+        articleDTO.setTittle(article.getTittle());
+        articleDTO.setGmt_updated(article.getGmt_updated());
+        String json=JsonOperator.getMSGJson(articleDTO,CommonCode.SUCCESS);
+        return json;
+    }
+
+
+    @Override
     public String getArticleCatalogFromBin(Integer pages) {
         pages--;
         List<ArticleCatalogDTO> list = articleCatalogMapper.selectCatalogFromBinByPage(pages, CommonConst.ArticleCatalogEveryPage);
@@ -205,6 +220,29 @@ public class ArticleServiceImpl implements ArticleService {
         }
         String json;
         if(pageNum!=-1){
+            pageNum--;
+            pageNum/=CommonConst.ArticleCatalogEveryPage;
+            pageNum++;
+            json=JsonOperator.getMSGJson(pageNum, CommonCode.SUCCESS);
+        }
+        else{
+            json=JsonOperator.getMSGJson(pageNum, CommonCode.ERROR);
+        }
+        return json;
+    }
+
+    @Override
+    public String getCatalogPageNumInBin() {
+        Integer pageNum;
+        try {
+            pageNum=articleCatalogMapper.selectArticleNumInBin();
+        }catch (DataBaseException e){
+            e.printStackTrace();
+            pageNum=-2;
+        }
+        String json;
+        if(pageNum!=-2){
+            //处理页码问题
             pageNum--;
             pageNum/=CommonConst.ArticleCatalogEveryPage;
             pageNum++;

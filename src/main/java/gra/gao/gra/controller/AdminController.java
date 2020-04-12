@@ -99,6 +99,13 @@ public class AdminController {
         return detailsJSON;
     }
 
+    @ApiOperation("回收站文章页数")
+    @PostMapping("articles/bin/catalog/pagenum")
+    public String getCatalogPageNum(){
+        String JSON= articleService.getCatalogPageNumInBin();
+        return JSON;
+    }
+
     @ApiOperation("返回垃圾桶文章目录信息")
     @GetMapping("articles/bin/catalog/{page}")
     public String getArticlesCatalogFromBinByPage(@PathVariable Integer page){
@@ -127,5 +134,13 @@ public class AdminController {
         //清空数据库的uuid
         String json =adminService.clearUUID();
         return json;
+    }
+
+
+    @ApiOperation("管理员获取具体文章详细信息（可获取已删除的）")
+    @PostMapping("articles/details/{id}")
+    public String getArticlesDetailsByID(@NonNull @PathVariable Long id){
+        String detailsJSON = articleService.getArticleByIDForAdmin(id);
+        return detailsJSON;
     }
 }

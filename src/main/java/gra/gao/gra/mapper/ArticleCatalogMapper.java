@@ -26,4 +26,7 @@ public interface ArticleCatalogMapper {
 
     @Select("select count(*) from g_article where deleted != 1")
     public Integer selectArticleNum();
+
+    @Select("select count(*) from g_article where deleted = 1")
+    public Integer selectArticleNumInBin();
 }

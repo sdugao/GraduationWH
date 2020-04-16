@@ -15,4 +15,6 @@ public class GuestDTO {
     private String username;
     private String UUID;
     private String password;
+    private Long id;
+    private String nickname;
 }

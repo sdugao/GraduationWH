@@ -1,6 +1,7 @@
 package gra.gao.gra.service;
 
 import gra.gao.gra.dto.GuestDTO;
+import gra.gao.gra.entity.Guest;
 
 /**
  * @author:gao
@@ -13,5 +14,6 @@ import gra.gao.gra.dto.GuestDTO;
 public interface GuestService {
 
     public boolean determineGuestLogin(GuestDTO guestDTO);
-    public String guestLogin(GuestDTO guestDTO);
+    public GuestDTO guestLogin(GuestDTO guestDTO);
+    public String guestLoginByUUID(String uuid);
 }

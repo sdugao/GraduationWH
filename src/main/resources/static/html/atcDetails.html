@@ -21,58 +21,10 @@
     <script src="../js/editor.md/lib/jquery.flowchart.min.js"></script>
     <script src="../js/editor.md/editormd.js"></script>
 
-    <script>
-        window.onload = function(){
-            var url="http://localhost:8848/articles/details/";
-            var vm = new Vue({
-                el:'#gdetails',
-                data:{
-                    code: 0,
-                    content:{},
-                },
-                created:function(){
-                    this.getContent();
-                },
-                mounted:function(){
-                },
-                methods:{
-                    getQueryVariable:function (variable){
-                        var query = window.location.search.substring(1);
-                        var vars = query.split("&");
-                        for (var i=0;i<vars.length;i++) {
-                        var pair = vars[i].split("=");
-                            if(pair[0] == variable){return pair[1];}
-                        }
-                    return(false);
-                    },
 
-                    getContent:function(){
-                        $.ajax({
-                            type: 'post',
-                            sync: true,
-                            //contentType: "application/x-www-form-urlencoded; charset=utf-8",//x-www-form-urlencoded
-                            url:  url+this.getQueryVariable("id"),
-                            data:{
-                            },
-                            dataType: 'json',
-                            success: function (result) {
-                                //console.log(result);
-                                vm.code = result.code;
-                                //console.log(vm.code);
-                                vm.content = result.message;
-                                //console.log(vm.content);
-
-                            }
-                        });
-                    }
-                }
-            });
-        }
-
-    </script>
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default my-nav">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -82,38 +34,20 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left my-search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default ">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
+
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id ="v_user">{{nickname}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">个人资料</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">注销登录</a></li>
                     </ul>
                 </li>
             </ul>
@@ -143,7 +77,7 @@
                         <div class="my-details-user">{{content.gmt_updated}}</div>
 
                         <div id="test-editormd-view2" class="panel panel-default">
-                            <textarea  id="append-test" style="display:none;">{{content.content}}</textarea>
+                            <textarea  id="append-test" style="display:none;">{{text}}</textarea>
                         </div>
 
                         <script type="text/javascript">
@@ -187,9 +121,7 @@
                                 });
                             });
                         </script>
-                        <div  class="alert alert-info my-question-edit" role="alert">
-                            <a  class="alert-link ">编辑</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -197,35 +129,162 @@
     </div>
 </div>
 
-<div class="panel panel-default my-panel">
+<div class="panel panel-default my-panel" id="v_comment">
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-lg-12 col-sm-12 col-sm-12">
 
-                    <!--<div th:if="${session.comments!=null}" th:each="comment :${session.comments.getParents()}">-->
-                        <!--<div>-->
-                            <!--<div>-->
-                                <!--<img src="..." alt="..." class="img-rounded">-->
-                                <!--<span>user</span>-->
-                            <!--</div>-->
-                            <!--<div th:text="${comment.getComment()}"></div>-->
-                            <!--<div th:text="${comment.getUpdate_time()}"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
+                    <ul class="list-group">
+                        <li class="list-group-item" v-if="code==200" v-for="comment in comment_list" ><div><span>{{comment.author_nickname}}</span><span>：</span><span >{{comment.content}}</span></div><div class="my-t-date"><span>发表日期：{{comment.gmt_updated}} </span></div></li>
+                    </ul>
                 </div>
-                <div class="my-reply"><a  class="reply_link">回复</a></div>
+                <div class="my-reply" @click="submitComment()"><a  class="reply_link">回复</a></div>
                 <!--<script>-->
                 <!--$(".reply_link").click(function(){-->
                 <!--$(".reply").after("<div><textarea>dddd</textarea></div>");-->
                 <!--})-->
                 <!--</script>-->
+                <div class="v_comment_submit" >
+                    <textarea class="form-control" rows="3" placeholder="请输入内容"></textarea>
+                    <button class="btn btn-default my-question-edit">提交</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+
+<script>
+        //window.onload = function(){
+            var url="http://localhost:8848/articles/details/";
+            var vm = new Vue({
+                el:'#gdetails',
+                data:{
+                    code: 0,
+                    content:{},
+                    text:''
+                },
+                created:function(){
+                    this.getContent();
+                },
+                mounted:function(){
+                },
+                methods:{
+                    getQueryVariable:function (variable){
+                        var query = window.location.search.substring(1);
+                        var vars = query.split("&");
+                        for (var i=0;i<vars.length;i++) {
+                        var pair = vars[i].split("=");
+                            if(pair[0] == variable){return pair[1];}
+                        }
+                    return(false);
+                    },
+
+                    getContent:function(){
+                        $.ajax({
+                            type: 'post',
+                            sync: true,
+                            //contentType: "application/x-www-form-urlencoded; charset=utf-8",//x-www-form-urlencoded
+                            url:  url+this.getQueryVariable("id"),
+                            data:{
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                //console.log(result);
+                                vm.code = result.code;
+                                //console.log(vm.code);
+                                vm.content = result.message;
+                                vm.text = vm.content.content;
+                                //console.log(vm.content);
+
+                            }
+                        });
+                    }
+                }
+            });
+
+            //
+            var vm_user=new Vue({
+                el:'#v_user',
+                data:{
+                    nickname:'未登录',
+                    username:'',
+                    id:''
+                },
+                created:function(){
+                                    this.determinLoginByCookie();
+                                },
+                methods:{
+                    determinLoginByCookie:function() {
+                      $.ajax({
+                                                                type: 'post',
+                                                                sync: false,
+                                                                url:  'http://localhost:8848/guest/determineLogin',
+                                                                contentType: 'application/json;charset=UTF-8',
+                                                                dataType: 'json',
+                                                                success: function (result) {
+                                                                if(result.code==200){
+                                                                    var msg =result.message;
+                                                                  vm_user.username = msg.username;
+                                                                  vm_user.id = msg.id;
+                                                                  vm_user.nickname = msg.nickname;
+                                                                }
+
+                                                            }
+                                                        });
+
+                    }
+
+                }
+            });
+       // }
+             var vm_comment=new Vue({
+                            el:'#v_comment',
+                            data:{
+                               comment_list:[],
+                               code:0,
+                            },
+                            created:function(){
+                                                this.getComment();
+                                            },
+                            methods:{
+                                getQueryVariable:function (variable){
+                                                        var query = window.location.search.substring(1);
+                                                        var vars = query.split("&");
+                                                        for (var i=0;i<vars.length;i++) {
+                                                        var pair = vars[i].split("=");
+                                                            if(pair[0] == variable){return pair[1];}
+                                                        }
+                                                    return(false);
+                                                    },
+                                getComment:function() {
+                                  $.ajax({
+                                                                            type: 'post',
+                                                                            sync: false,
+                                                                            url:  'http://localhost:8848/articles/comment/'+this.getQueryVariable("id"),
+                                                                            contentType: 'application/json;charset=UTF-8',
+                                                                            dataType: 'json',
+                                                                            success: function (result) {
+                                                                            if(result.code==200){
+                                                                                vm_comment.code=200;
+                                                                              vm_comment.comment_list= result.message;
+                                                                            }
+
+                                                                        }
+                                                                    });
+
+                                },
+                                submitComment:function() {
+
+                                }
+
+                            }
+
+                        });
+
+
+    </script>
 
 </body>
 </html>

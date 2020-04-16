@@ -23,5 +23,6 @@ public class CommentDTO {
     private String content;
     private Long author_id;//便于回复时找到作者
     private String author_username;
+    private String author_nickname;
     private List<CommentDTO> child_comment;
 }

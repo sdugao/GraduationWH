@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
             //查找用户名
             Guest guest=guestMapper.selectByPrimaryKey(comment.getArticle_id());
             commentDTO.setAuthor_username(guest.getUsername());
-
+            commentDTO.setAuthor_nickname(guest.getNickname());
             commentDTO.setContent(comment.getContent());
             commentDTO.setGmt_updated(comment.getGmt_updated());
             commentDTO.setId(commentDTO.getId());

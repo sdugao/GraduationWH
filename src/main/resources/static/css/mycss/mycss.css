@@ -65,8 +65,7 @@ ul{
     color: darkgrey;
 }
 .my-question-edit{
-    width:fit-content;
-    height: fit-content;
+    float: left;
 }
 
 .my-search{
@@ -75,4 +74,8 @@ ul{
 }
 .my-reply{
     width:40px;
+}
+
+.my-nav{
+    background: lightgoldenrodyellow;
 }

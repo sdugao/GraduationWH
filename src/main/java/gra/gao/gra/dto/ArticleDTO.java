@@ -1,5 +1,6 @@
 package gra.gao.gra.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ public class ArticleDTO {
 
     private String tag;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm")
     private Date gmt_updated;
 
 }

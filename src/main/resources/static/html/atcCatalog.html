@@ -10,18 +10,30 @@
     <script src="../js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="../js/bootstrap.min.js" type="application/javascript"></script>
     <script src="../js/vue.min.js" type="application/javascript"></script>
-    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+
+<script>
+ function  getQueryVariable (variable){
+                    var query = window.location.search.substring(1);
+                    var vars = query.split("&");
+                    for (var i=0;i<vars.length;i++) {
+                         var pair = vars[i].split("=");
+                            if(pair[0] == variable){return pair[1];}
+                    }
+                    return(false);
+        }
+</script>
 
     <script>
         window.onload = function(){
-            var url = "http://localhost:8848/articles/catalog/1"
+            var url = "http://localhost:8848/articles/catalog/1";
             var vm = new Vue({
                 el:'#gcatalog',
                 data:{
                     code: 0,
                     list:[],
-                    content_url:"http://localhost:8848/html/atcDetails.html?id="
-                    //l:[{"gmt_updated":1584358724000,"id":1,"tittle":"string"},{"gmt_updated":1584363258000,"id":2,"tittle":"1"},{"gmt_updated":1584363263000,"id":3,"tittle":"2"},{"gmt_updated":1584363268000,"id":4,"tittle":"3"},{"gmt_updated":1584363274000,"id":5,"tittle":"4"},{"gmt_updated":1584363339000,"id":6,"tittle":"5"},{"gmt_updated":1584363342000,"id":7,"tittle":"6"},{"gmt_updated":1584363348000,"id":8,"tittle":"7"},{"gmt_updated":1584363352000,"id":9,"tittle":"8"},{"gmt_updated":1584363356000,"id":10,"tittle":"9"}]
+                    content_url:"http://localhost:8848/html/atcDetails.html?id=",
+                    cur_page :1,
+                    total_page:0,
                 },
                 created:function(){
                     this.getCatalog();
@@ -35,8 +47,7 @@
                             sync: true,
                             //contentType: "application/x-www-form-urlencoded; charset=utf-8",//x-www-form-urlencoded
                             url:  url,
-                            data:{
-                    },
+                            data:{},
                         dataType: 'json',
                             success: function (result) {
                                 //console.log(result.code);
@@ -44,52 +55,97 @@
                             vm.list = result.message;
                         }
                     });
+                    $.ajax({
+                                          type: 'post',
+                                          sync: false,
+                                          url:  'http://localhost:8848/articles/catalog/pagenum',
+                                          contentType: 'application/json;charset=UTF-8',
+                                          dataType: 'json',
+                                          success: function (result) {
+                                              //console.log(result.code);
+                                          vm.code = result.code;
+                                          if(vm.code==200){
+                                            vm.total_page = result.message;
+                                          }
+                                          else{
+                                            vm.total_page=0;
+                                          }
+                                      }
+                                  });
+
+                    },
+
+                    channgePage:function(){
+                              if(vm.cur_page<=0) {
+                                vm.cur_page=1;
+                                return;
+                              }
+                              if(vm.cur_page>vm.total_page){
+                                vm.cur_page=vm.total_page;
+                                return ;
+                              }
+                              $.ajax({
+                                      type: 'get',
+                                      sync: false,
+                                      url:  'http://localhost:8848/articles/catalog/'+vm.cur_page,
+                                      contentType: 'application/json;charset=UTF-8',
+                                      dataType: 'json',
+                                      success: function (result) {
+                                          //console.log(result.code);
+                                      vm.code = result.code;
+                                      if(vm.code==200){
+                                        vm.list = result.message;
+                                      }
+                                      else{
+                                        vm.list=[];
+                                      }
+                                  }
+                              });
+                            },
                     }
-                }
+
             });
         }
 
     </script>
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default my-nav">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
                 <img  class="my-logo" alt="GAO" src="../img/logo.jpg"  >
-
+                <span>首页</span>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-            <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                                <li><a href="#">Link</a></li>-->
-               <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">个人资料</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">注销</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left">
+        <!--<ul class="nav navbar-nav">
+
+                           <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">个人资料</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">注销</a></li>
+                                </ul>
+                            </li>
+                        </ul>-->
+
+            <form class="navbar-form navbar-left my-search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">搜索</button>
             </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
+            <ul class="nav navbar-nav navbar-right" id="v_user">
+
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{nickname}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">个人资料</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">注销登录</a></li>
                     </ul>
                 </li>
             </ul>
@@ -104,9 +160,21 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-lg-8 col-sm-8 col-sm-8" id="gcatalog">
+                <div>
                     <ul class="list-group">
                         <li class="list-group-item" v-if="code==200" v-for="json in list" ><div><div class="my-tittle" ><a :href="content_url+json.id">{{json.tittle}}</a></div><div class="my-t-date"><span>最近修改：{{json.gmt_updated}} &nbsp;&nbsp;&nbsp;评论数：10 &nbsp;&nbsp;&nbsp;点赞数：10</span></div></div></li>
                     </ul>
+                </div>
+                <ul class="pagination">
+                                  <li class="first_page" @click="cur_page=1,channgePage()" v-if="cur_page!=1"><a>第一页</a></li>
+                                  <li  @click="cur_page--,channgePage()" v-if="cur_page>1"><span>«</span></li>
+                                  <li class="active"><span>{{cur_page}}</span></li>
+                                  <li><a @click="cur_page++,channgePage()" v-if="total_page>cur_page">{{cur_page+1}}</a></li>
+                                  <li class="disabled" v-if="total_page-cur_page>2"><span>...</span></li>
+                                  <li><a @click="cur_page=total_page-1,channgePage()" v-if="total_page-cur_page>2">{{total_page-1}}</a></li>
+                                  <li  @click="cur_page++,channgePage()" v-if="total_page>cur_page"><a>»</a></li>
+                                  <li class="lastest_page" @click="cur_page=total_page,channgePage()" v-if="cur_page!=total_page"><a>最后一页</a></li>
+                </ul>
                 </div>
 
                 <div class="col-lg-12 col-lg-4 col-sm-4 col-sm-4 my-itdct" >
@@ -146,6 +214,47 @@
     </div>
 </div>
 
+
+<script>
+
+var vm_user=new Vue({
+    el:'#v_user',
+    data:{
+        nickname:'未登录',
+        username:'',
+        id:''
+    },
+    created:function(){
+                        this.nickname = getQueryVariable('nickname');
+                        this.username = getQueryVariable('username');
+                        this.id = getQueryVariable('id');
+                        this.determinLoginByCookie();
+                    },
+    methods:{
+        determinLoginByCookie:function() {
+          $.ajax({
+                                                    type: 'post',
+                                                    sync: false,
+                                                    url:  'http://localhost:8848/guest/determineLogin',
+                                                    contentType: 'application/json;charset=UTF-8',
+                                                    dataType: 'json',
+                                                    success: function (result) {
+                                                    if(result.code==200){
+                                                        var msg =result.message;
+                                                      vm_user.username = msg.username;
+                                                      vm_user.id = msg.id;
+                                                      vm_user.nickname = msg.nickname;
+                                                    }
+
+                                                }
+                                            });
+
+        }
+
+    }
+})
+
+</script>
 
 </body>
 </html>

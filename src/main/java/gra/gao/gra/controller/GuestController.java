@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 
@@ -53,7 +54,14 @@ public class GuestController {
 
     @ApiOperation("uuid判断登录，获取登录信息")
     @PostMapping("/determineLogin")
-    public String determineLogin(@NonNull String uuid) {
+    public String determineLogin(HttpServletRequest request) {
+        Cookie[] cookies=request.getCookies();
+        String uuid="";
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals(CommonConst.GuestCookie)){
+                uuid = cookie.getValue();
+            }
+        }
         String  json =guestService.guestLoginByUUID(uuid);
         return json;
     }

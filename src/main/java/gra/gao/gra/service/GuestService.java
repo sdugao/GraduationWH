@@ -16,4 +16,7 @@ public interface GuestService {
     public boolean determineGuestLogin(GuestDTO guestDTO);
     public GuestDTO guestLogin(GuestDTO guestDTO);
     public String guestLoginByUUID(String uuid);
+    public String determineUnameUsed(String uname);
+    public String register(GuestDTO guestDTO);
+    public String updateGuestInfo(GuestDTO guestDTO);
 }

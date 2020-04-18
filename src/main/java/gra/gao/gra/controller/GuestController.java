@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.deploy.net.HttpResponse;
 import gra.gao.gra.common.CommonCode;
 import gra.gao.gra.common.CommonConst;
+import gra.gao.gra.common.CommonJson;
 import gra.gao.gra.common.JsonOperator;
 import gra.gao.gra.dto.GuestDTO;
 import gra.gao.gra.service.GuestService;
@@ -65,10 +66,35 @@ public class GuestController {
         String  json =guestService.guestLoginByUUID(uuid);
         return json;
     }
-
-    @ApiOperation("返回用户评论信息")
-    @PostMapping("/comment")
-    public String clientComment(){
-        return null;
+    @ApiOperation("用户注销")
+    @PostMapping("/logout")
+    public String guestLogout(HttpServletResponse response){
+            Cookie cookie = new Cookie(CommonConst.GuestCookie,"");
+            cookie.setMaxAge(0);//7天
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            return JsonOperator.getStatusJson(true);
     }
+
+    @ApiOperation("user是否被占用")
+    @PostMapping("/determineUnameUsed/{uname}")
+    public String determineUnameUsed(@NonNull @PathVariable("uname") String uname ){
+        String  json =guestService.determineUnameUsed(uname);
+        return json;
+    }
+
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public String register(@NonNull @RequestBody GuestDTO guestDTO){
+        String  json =guestService.register(guestDTO);
+        return json;
+    }
+
+    @ApiOperation("修改用户信息")
+    @PostMapping("/updateGuestInfo")
+    public String updateGuest(@NonNull @RequestBody GuestDTO guestDTO){
+        String  json =guestService.updateGuestInfo(guestDTO);
+        return json;
+    }
+
 }

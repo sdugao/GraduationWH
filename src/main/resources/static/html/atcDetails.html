@@ -22,6 +22,13 @@
     <script src="../js/editor.md/editormd.js"></script>
 
 
+
+<link href="back/css/materialdesignicons.min.css" rel="stylesheet">
+<link href="back/css/style.min.css" rel="stylesheet">
+<link href="back/css/animate.css" rel="stylesheet">
+<script src="back/js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="back/js/lightyear.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-default my-nav">
@@ -42,12 +49,33 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id ="v_user">{{nickname}} <span class="caret"></span></a>
+                <li class="dropdown" id ="v_user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{nickname}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">个人资料</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">注销登录</a></li>
+                        <li v-if="id==-1"><a href="./login.html" >登录</a></li>
+                        <li v-if="id!=-1"><a :href="'./guest_info.html?id='+id+'&uname='+username+'&nname='+nickname" >个人资料</a></li>
+                        <li role="separator" class="divider" v-if="id!=-1"></li>
+                        <li v-if="id!=-1"><a href="javascript:logout()">注销登录</a></li>
+
+                        <script>
+                               function logout(){
+                                    $.ajax({
+                                                                                                                                                  type: 'post',
+                                                                                                                                                  sync: false,
+                                                                                                                                                  url:  'http://localhost:8848/guest/logout',
+                                                                                                                                                  contentType: 'application/json;charset=UTF-8',
+                                                                                                                                                  dataType: 'json',
+                                                                                                                                                  success: function (result) {
+                                                                                                                                                           if(result.code==200){
+                                                                                                                                                                   lightyear.notify('注销成功!', 'info', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                                                                                                                                                                   vm_user.username = null;
+                                                                                                                                                                   vm_user.id = -1;
+                                                                                                                                                                   vm_user.nickname = '未登录';
+                                                                                                                                                           }
+                                                                                                                                                  }
+                                                                                              });
+                               }
+                        </script>
                     </ul>
                 </li>
             </ul>
@@ -68,7 +96,6 @@
                         </div>
                         <div class="my-details-user">
                             <span >观看数: 10</span>
-                            <span >点赞数: 10</span>
                             <span >评论数: 10</span>
                         </div>
                         <div>
@@ -134,21 +161,22 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-lg-12 col-sm-12 col-sm-12">
-
+                    <div class="my-reply" @click="show_ta=true"><a  class="reply_link">回复</a></div>
+                    <div class="my-comment-reply" v-if="show_ta">
+                                        <textarea class="form-control" rows="3" placeholder="请输入内容" v-model="reply"></textarea>
+                                        <button class="btn btn-default my-question-edit" @click="submitComment()">提交</button>
+                    </div>
                     <ul class="list-group">
                         <li class="list-group-item" v-if="code==200" v-for="comment in comment_list" ><div><span>{{comment.author_nickname}}</span><span>：</span><span >{{comment.content}}</span></div><div class="my-t-date"><span>发表日期：{{comment.gmt_updated}} </span></div></li>
                     </ul>
                 </div>
-                <div class="my-reply" @click="submitComment()"><a  class="reply_link">回复</a></div>
+
                 <!--<script>-->
                 <!--$(".reply_link").click(function(){-->
                 <!--$(".reply").after("<div><textarea>dddd</textarea></div>");-->
                 <!--})-->
                 <!--</script>-->
-                <div class="v_comment_submit" >
-                    <textarea class="form-control" rows="3" placeholder="请输入内容"></textarea>
-                    <button class="btn btn-default my-question-edit">提交</button>
-                </div>
+
             </div>
         </div>
     </div>
@@ -230,6 +258,11 @@
                                                                   vm_user.id = msg.id;
                                                                   vm_user.nickname = msg.nickname;
                                                                 }
+                                                                else {
+                                                                    vm_user.username = null;
+                                                                    vm_user.id = -1;
+                                                                    vm_user.nickname = '未登录';
+                                                                }
 
                                                             }
                                                         });
@@ -243,7 +276,9 @@
                             el:'#v_comment',
                             data:{
                                comment_list:[],
+                               show_ta:false,
                                code:0,
+                               reply:'',
                             },
                             created:function(){
                                                 this.getComment();
@@ -275,8 +310,63 @@
                                                                     });
 
                                 },
+                                writeCurrentDate:function() {
+                                        var now = new Date();
+                                        var year = now.getFullYear(); //得到年份
+                                        var month = now.getMonth();//得到月份
+                                        var date = now.getDate();//得到日期
+                                        var day = now.getDay();//得到周几
+                                        var hour = now.getHours();//得到小时
+                                        var minu = now.getMinutes();//得到分钟
+                                        var sec = now.getSeconds();//得到秒
+                                　　     var MS = now.getMilliseconds();//获取毫秒
+                                        var week;
+                                        month = month + 1;
+                                        if (month < 10) month = "0" + month;
+                                        if (date < 10) date = "0" + date;
+                                        if (hour < 10) hour = "0" + hour;
+                                        if (minu < 10) minu = "0" + minu;
+                                        if (sec < 10) sec = "0" + sec;
+                                        if (MS < 100)MS = "0" + MS;
+                                        var arr_week = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+                                        week = arr_week[day];
+                                        var time = "";
+                                        time = year + "-" + month + "-" + date  + " " + hour + ":" + minu  ;
+                                       return time;
+                                      },
                                 submitComment:function() {
+                                       //alert(vm_comment.reply);
+                                       if(vm_user.id==-1){
+                                         //alert('请先登录！');
+                                         lightyear.notify('请先登录！', 'danger', 2000, 'mdi mdi-emoticon-sad', 'bottom', 'center');
+                                         return;
+                                       }
+                                        $.ajax({
+                                                     type: 'post',
+                                                     sync: false,
+                                                     url:  'http://localhost:8848/articles/comment/reply',
+                                                     contentType: 'application/json;charset=UTF-8',
+                                                     dataType: 'json',
+                                                      data:JSON.stringify({
+                                                                                author_id:vm_user.id,
+                                                                                article_id:this.getQueryVariable('id'),
+                                                                                content:vm_comment.reply,
+                                                                                   }),
+                                                     success: function (result) {
+                                                              if(result.code==200){
+                                                                      lightyear.notify('评论成功!', 'info', 2000, 'mdi mdi-emoticon-happy', 'bottom', 'center');
+                                                                      var comment_add ={
+                                                                        author_nickname:vm_user.nickname,
+                                                                        content:vm_comment.reply,
+                                                                        gmt_updated:vm_comment.writeCurrentDate()
+                                                                      };
+                                                                      vm_comment.comment_list.push(comment_add);
+                                                                      vm_comment.reply='';
+                                                                      vm_comment.show_ta=false;
+                                                              }
 
+                                                     }
+                                        });
                                 }
 
                             }

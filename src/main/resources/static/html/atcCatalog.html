@@ -138,16 +138,37 @@
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
-            <ul class="nav navbar-nav navbar-right" id="v_user">
+            <ul class="nav navbar-nav navbar-right" >
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{nickname}}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">个人资料</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">注销登录</a></li>
-                    </ul>
-                </li>
+                <li class="dropdown" id ="v_user">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{nickname}} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li v-if="id==-1"><a href="./login.html" >登录</a></li>
+                                        <li v-if="id!=-1"><a :href="'./guest_info.html?id='+id+'&uname='+username+'&nname='+nickname" >个人资料</a></li>
+                                        <li role="separator" class="divider" v-if="id!=-1"></li>
+                                        <li v-if="id!=-1"><a href="javascript:logout()">注销登录</a></li>
+
+                                        <script>
+                                               function logout(){
+                                                    $.ajax({
+                                                                                                                                                                  type: 'post',
+                                                                                                                                                                  sync: false,
+                                                                                                                                                                  url:  'http://localhost:8848/guest/logout',
+                                                                                                                                                                  contentType: 'application/json;charset=UTF-8',
+                                                                                                                                                                  dataType: 'json',
+                                                                                                                                                                  success: function (result) {
+                                                                                                                                                                           if(result.code==200){
+                                                                                                                                                                                   lightyear.notify('注销成功!', 'info', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                                                                                                                                                                                   vm_user.username = null;
+                                                                                                                                                                                   vm_user.id = -1;
+                                                                                                                                                                                   vm_user.nickname = '未登录';
+                                                                                                                                                                           }
+                                                                                                                                                                  }
+                                                                                                              });
+                                               }
+                                        </script>
+                                    </ul>
+                                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -244,6 +265,11 @@ var vm_user=new Vue({
                                                       vm_user.username = msg.username;
                                                       vm_user.id = msg.id;
                                                       vm_user.nickname = msg.nickname;
+                                                    }
+                                                    else{
+                                                        vm_user.username = null;
+                                                        vm_user.id = -1;
+                                                        vm_user.nickname = '未登录';
                                                     }
 
                                                 }

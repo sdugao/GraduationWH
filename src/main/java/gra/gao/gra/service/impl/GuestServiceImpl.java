@@ -124,4 +124,78 @@ public class GuestServiceImpl implements GuestService {
         }
         return json;
     }
+
+    boolean determineUsed(String uname){
+        GuestExample ge = new GuestExample();
+        GuestExample.Criteria gc = ge.createCriteria();
+        gc.andUsernameEqualTo(uname);
+        boolean used = true;
+        try {
+            List<Guest> guests = guestMapper.selectByExample(ge);
+            if(guests!=null&&guests.isEmpty()){
+                used=false;
+            }
+        }catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+        return used;
+    }
+
+    @Override
+    public String determineUnameUsed(String uname) {
+       boolean used = determineUsed(uname);
+        return JsonOperator.getStatusJson(used);
+    }
+
+    @Override
+    public String register(@NonNull GuestDTO guestDTO) {
+        String json ="";
+        boolean succuss=false;
+        String uname = guestDTO.getUsername();
+        if(uname!=null&&!uname.equals("")&&!determineUsed(uname)){
+            Guest guest= new Guest();
+            guest.setUsername(guestDTO.getUsername());
+            Date date = new Date();
+            guest.setGmt_created(date);
+            guest.setGmt_updated(date);
+            guest.setNickname(guestDTO.getNickname());
+            guest.setG_password(guestDTO.getPassword());
+            try{
+                int i=guestMapper.insertSelective(guest);
+                if(i==1){
+                    succuss = true;
+                }
+            }catch (DataBaseException e){
+                e.printStackTrace();
+            }
+        }
+        json =JsonOperator.getStatusJson(succuss);
+        return json;
+    }
+
+    @Override
+    public String updateGuestInfo(@NonNull GuestDTO guestDTO) {
+            String json ="";
+            boolean succuss = false;
+            Guest guest= new Guest();
+            //guest.setUsername(guestDTO.getUsername());
+            Date date = new Date();
+            //guest.setGmt_created(date);
+            guest.setGmt_updated(date);
+            guest.setNickname(guestDTO.getNickname());
+            guest.setG_password(guestDTO.getPassword());
+            guest.setId(guestDTO.getId());
+            if(guestDTO.getPassword()=="")guestDTO.setPassword(null);
+            try{
+                int i = guestMapper.updateByPrimaryKeySelective(guest);
+                if(i==1){
+                    succuss = true;
+                }
+            }catch (DataBaseException e){
+                e.printStackTrace();
+            }
+        json =JsonOperator.getStatusJson(succuss);
+        return json;
+    }
+
 }

@@ -1,12 +1,15 @@
 package gra.gao.gra.service.impl;
 
+import ch.qos.logback.classic.db.DBAppender;
 import gra.gao.gra.common.CommonCode;
+import gra.gao.gra.common.CommonConst;
 import gra.gao.gra.common.JsonOperator;
 import gra.gao.gra.dto.CommentDTO;
 import gra.gao.gra.entity.Comment;
 import gra.gao.gra.entity.CommentExample;
 import gra.gao.gra.entity.Guest;
 import gra.gao.gra.entity.GuestExample;
+import gra.gao.gra.exception.DataBaseException;
 import gra.gao.gra.mapper.CommentMapper;
 import gra.gao.gra.mapper.GuestMapper;
 import gra.gao.gra.service.CommentService;
@@ -43,16 +46,7 @@ public class CommentServiceImpl implements CommentService {
         List<CommentDTO> commentDTOList = new LinkedList<>();
         //封装返回列表
         for(Comment comment:parentList){
-            CommentDTO commentDTO = new CommentDTO();
-            commentDTO.setAuthor_id(comment.getAuthor_id());
-            //查找用户名
-            Guest guest=guestMapper.selectByPrimaryKey(comment.getArticle_id());
-            commentDTO.setAuthor_username(guest.getUsername());
-            commentDTO.setAuthor_nickname(guest.getNickname());
-            commentDTO.setContent(comment.getContent());
-            commentDTO.setGmt_updated(comment.getGmt_updated());
-            commentDTO.setId(commentDTO.getId());
-            commentDTO.setChild_comment(null);//没做
+           CommentDTO commentDTO =getDTOByComment(comment);
             commentDTOList.add(commentDTO);
         }
         String reJ=JsonOperator.getMSGJson(commentDTOList, CommonCode.SUCCESS);
@@ -77,5 +71,79 @@ public class CommentServiceImpl implements CommentService {
             return JsonOperator.getStatusJson(false);
         }
         return JsonOperator.getStatusJson(true);
+    }
+
+    //通过comment 获取commentDTO
+    public CommentDTO getDTOByComment(Comment comment){
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setAuthor_id(comment.getAuthor_id());
+        commentDTO.setId(comment.getId());
+        try {
+            //查找用户名
+            Guest guest = guestMapper.selectByPrimaryKey(comment.getAuthor_id());
+            if(guest==null) return null;
+            commentDTO.setAuthor_username(guest.getUsername());
+            commentDTO.setAuthor_nickname(guest.getNickname());
+            commentDTO.setContent(comment.getContent());
+            commentDTO.setGmt_updated(comment.getGmt_updated());
+            commentDTO.setId(commentDTO.getId());
+            commentDTO.setChild_comment(null);//没做
+        }catch (DataBaseException e){
+            e.printStackTrace();
+            commentDTO=null;
+        }
+        return  commentDTO;
+    }
+
+    public String getCommenList(CommentExample ce){
+
+        try{
+            List<Comment> list = commentMapper.selectByExample(ce);
+            List<CommentDTO> list_DTO =new LinkedList<>();
+            for(Comment comment:list){
+                CommentDTO c = getDTOByComment(comment);
+                if(c!=null)list_DTO.add(c);
+            }
+            return JsonOperator.getMSGJson(list_DTO, CommonCode.SUCCESS);
+        }catch (DataBaseException e){
+            e.printStackTrace();
+        }
+        return JsonOperator.getStatusJson(false);
+    }
+
+    @Override
+    public String back_getCommentNotRead() {
+        CommentExample ce = new CommentExample();
+        CommentExample.Criteria cc = ce.createCriteria();
+        cc.andDeletedEqualTo(false);
+        return getCommenList(ce);
+    }
+
+    @Override
+    public String back_getCommentAfterDate(Date date) {
+        if(date == null){
+            date =new Date();
+            date.setTime(0);
+        }
+        CommentExample ce = new CommentExample();
+        CommentExample.Criteria cc = ce.createCriteria();
+        Date date2= new Date();
+        cc.andGmt_updatedBetween(date,date2);
+        return getCommenList(ce);
+    }
+
+    @Override
+    public String markRead(Long id) {
+        Comment comment = new Comment();
+        comment.setId(Long.valueOf(id));
+        comment.setDeleted(true);
+        boolean success = false;
+        try{
+            int i= commentMapper.updateByPrimaryKeySelective(comment);
+            if(i==1) success=true;
+        }catch (DataBaseException e){
+            e.printStackTrace();
+        }
+        return JsonOperator.getStatusJson(success);
     }
 }

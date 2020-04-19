@@ -1,6 +1,8 @@
 package gra.gao.gra.service.impl;
 
 import gra.gao.gra.common.JsonOperator;
+import gra.gao.gra.dto.AdminPWD_DTO;
+import gra.gao.gra.entity.AdminExample;
 import gra.gao.gra.exception.DataBaseException;
 import gra.gao.gra.dto.AdminDTO;
 import gra.gao.gra.entity.Admin;
@@ -24,6 +26,7 @@ import java.util.UUID;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
     @Autowired
     AdminMapper adminMapper;
 
@@ -72,6 +75,28 @@ public class AdminServiceImpl implements AdminService {
             return JsonOperator.getStatusJson(true);
         }
         return JsonOperator.getStatusJson(false);
+    }
+
+    @Override
+    public String updatePWD(@NonNull AdminPWD_DTO dto) {
+
+        boolean success =false;
+        try{
+            Admin admin =adminMapper.selectByPrimaryKey(Long.valueOf(1));
+            if(admin!=null&&admin.getG_password().equals(dto.getOldpwd())){
+                if(dto.getNewpwd()!=null&&!dto.getNewpwd().equals("")) {
+                    admin.setG_password(dto.getNewpwd());
+                    int i =adminMapper.updateByPrimaryKeySelective(admin);
+                    if(i==1){
+                        success=true;
+                    }
+                }
+            }
+        }catch (DataBaseException e){
+            e.printStackTrace();
+        }
+        String json =JsonOperator.getStatusJson(success);
+        return json;
     }
 }
 

@@ -2,21 +2,31 @@ package gra.gao.gra.controller;
 
 import com.alibaba.fastjson.JSON;
 import gra.gao.gra.dto.AdminDTO;
+import gra.gao.gra.dto.AdminPWD_DTO;
 import gra.gao.gra.dto.ArticleDTO;
 import gra.gao.gra.dto.CommentDTO;
+import gra.gao.gra.entity.Admin;
 import gra.gao.gra.service.AdminService;
 import gra.gao.gra.service.ArticleService;
 import gra.gao.gra.common.CommonCode;
 import gra.gao.gra.common.CommonConst;
 import gra.gao.gra.common.CommonJson;
+import gra.gao.gra.service.CommentService;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author:gao
@@ -35,6 +45,8 @@ public class AdminController {
     AdminService adminService;
     @Autowired
     ArticleService articleService;
+    @Autowired
+    CommentService commentService;
 
     @ApiOperation("返回管理员登录信息")
     @PostMapping("/login")
@@ -142,5 +154,44 @@ public class AdminController {
     public String getArticlesDetailsByID(@NonNull @PathVariable Long id){
         String detailsJSON = articleService.getArticleByIDForAdmin(id);
         return detailsJSON;
+    }
+
+    @ApiOperation("修改密码")
+    @PostMapping("update/pwd")
+    public String updataPWD(@NonNull @RequestBody AdminPWD_DTO dto){
+        String detailsJSON = adminService.updatePWD(dto);
+        return detailsJSON;
+    }
+
+
+    @ApiOperation("获取未读评论")
+    @PostMapping("articles/comment/notread")
+    public String getCommentNotRead(){
+        String detailsJSON = commentService.back_getCommentNotRead();
+        return detailsJSON;
+    }
+
+    @ApiOperation("获取指定日期前的评论")
+    @PostMapping("articles/comment/after/{date}")
+    public String getCommentAll(@PathVariable("date") Date date){
+        String detailsJSON = commentService.back_getCommentAfterDate(date);
+        return detailsJSON;
+    }
+
+    @ApiOperation("将评论标记为已读")
+    @PostMapping("/articles/comment/delete/{id}")
+    public String markRead(@PathVariable("id") Long id){
+        String detailsJSON = commentService.markRead(id);
+        return detailsJSON;
+    }
+
+
+    //String日期解析成Date
+    @InitBinder
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+
+        //转换日期
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));// CustomDateEditor为自定义日期编辑器
     }
 }

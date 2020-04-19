@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,8 +28,19 @@ public class GuestLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("进入拦截器");
-        GuestDTO guestDTO = (GuestDTO) request.getSession().getAttribute(CommonConst.GuestCookie);
-        boolean flag= guestService.determineGuestLogin(guestDTO);
+        //GuestDTO guestDTO = (GuestDTO) request.getSession().getAttribute(CommonConst.GuestCookie);
+        Cookie[] cookies = request.getCookies();
+        String cookie_str=null;
+        if(cookies!=null&&cookies.length!=0)
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals(CommonConst.GuestCookie)){
+                    cookie_str=cookie.getValue();
+                }
+            }
+
+        boolean flag=false;
+            if(cookie_str!=null&&cookie_str.equals(""))
+                flag= guestService.determineGuestLogin(cookie_str);
         if(flag==false){
             String url = request.getRequestURI();
             System.out.println("拦截："+url);

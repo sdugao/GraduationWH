@@ -34,33 +34,21 @@ public class GuestServiceImpl implements GuestService {
     GuestMapper guestMapper;
 
     @Override
-    public boolean determineGuestLogin(@NonNull GuestDTO pGuestDTO) {
+    public boolean determineGuestLogin(@NonNull String uuid) {
         GuestExample guestExample = new GuestExample();
         GuestExample.Criteria criteria = guestExample.createCriteria();
-        criteria.andUsernameEqualTo(pGuestDTO.getUsername());
-        Guest guest = guestMapper.selectByExample(guestExample ).get(0);
-        if(guest==null){
-            throw new DataBaseException("guest返回为空！");
-        }
-        GuestDTO guestDTO=new GuestDTO();
-        //加上混淆
-        guestDTO.setUsername(CommonConst.GuestUsernameFront +guest.getUsername()+ CommonConst.GuestUsernameBack);
-        String uuid=guest.getG_uuid();
-//        if(uuid==null){
-//            uuid= UUID.randomUUID().toString();
-//            //写数据库
-//            guest.setG_uuid(uuid);
-//            guestMapper.updateByPrimaryKey(guest);
-//        }
-        guestDTO.setUUID(uuid);
-
-        boolean flag=false;
-        if(guestDTO!=null&&guestDTO.getUsername().equals(pGuestDTO.getUsername())&&
-                    guestDTO.getUUID().equals(pGuestDTO.getUUID())){
+        criteria.andG_uuidEqualTo(uuid);
+        //int i=0;
+        boolean flag= false;
+        try {
+            List<Guest> list=guestMapper.selectByExample(guestExample);
+            if(list!=null&&list.size()!=0){
                 flag=true;
+            }
+        }catch (DataBaseException e){
+            e.printStackTrace();
         }
         return flag;
-
     }
 
 
@@ -183,9 +171,10 @@ public class GuestServiceImpl implements GuestService {
             //guest.setGmt_created(date);
             guest.setGmt_updated(date);
             guest.setNickname(guestDTO.getNickname());
-            guest.setG_password(guestDTO.getPassword());
+            if(guestDTO.getPassword()!=null&&!guestDTO.getPassword().equals(""))
+                guest.setG_password(guestDTO.getPassword());
             guest.setId(guestDTO.getId());
-            if(guestDTO.getPassword()=="")guestDTO.setPassword(null);
+            //if(guestDTO.getPassword()=="")guestDTO.setPassword(null);
             try{
                 int i = guestMapper.updateByPrimaryKeySelective(guest);
                 if(i==1){

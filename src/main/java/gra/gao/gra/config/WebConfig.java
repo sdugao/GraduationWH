@@ -1,6 +1,8 @@
 package gra.gao.gra.config;
 
+import gra.gao.gra.entity.Guest;
 import gra.gao.gra.interceptor.AdminLoginInterceptor;
+import gra.gao.gra.interceptor.GuestLoginInterceptor;
 import gra.gao.gra.interceptor.VisitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +23,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截全部请求，做访问统计
-        registry.addInterceptor(getVI()).excludePathPatterns("/admin/**").addPathPatterns("/**/*.html");
+        registry.addInterceptor(getVI()).excludePathPatterns("/admin/**").addPathPatterns("/html/*.html");
         //拦截访问后台的接口
         registry.addInterceptor(getALI())
                     .excludePathPatterns("/admin/login")
                     .addPathPatterns("/admin/**");
+        //拦截修改用户信息，判断登录
+        registry.addInterceptor(getGL()).addPathPatterns("/guest/updateGuestInfo");
     }
 
     @Override
@@ -50,6 +54,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public VisitInterceptor getVI(){
         return new VisitInterceptor();
+    }
+
+    @Bean
+    public GuestLoginInterceptor getGL(){
+        return new GuestLoginInterceptor();
     }
 }
 

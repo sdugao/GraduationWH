@@ -3,111 +3,105 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>通知消息 - 光年(Light Year Admin)后台管理系统模板</title>
+
+<title>评论列表</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
 <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
 <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
 <meta name="author" content="yinqi">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/materialdesignicons.min.css" rel="stylesheet">
-<link href="css/animate.css" rel="stylesheet">
 <link href="css/style.min.css" rel="stylesheet">
+<link rel="stylesheet" href="js/jconfirm/jquery-confirm.min.css">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="js/lightyear.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
 </head>
-  
+
 <body>
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
     <!--左侧导航-->
     <aside class="lyear-layout-sidebar">
-       
+
       <!-- logo -->
       <div id="logo" class="sidebar-header">
         <a href="index.html"><img src="images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
       </div>
       <div class="lyear-layout-sidebar-scroll">
-        
+
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
-            <li class="nav-item"> <a href="index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+            <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+
             <li class="nav-item nav-item-has-subnav">
-              <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> UI 元素</a>
+              <a href="javascript:void(0)"><i class="mdi mdi-pencil"></i> 文章</a>
               <ul class="nav nav-subnav">
-                <li> <a href="lyear_ui_buttons.html">按钮</a> </li>
-                <li> <a href="lyear_ui_cards.html">卡片</a> </li>
-                <li> <a href="lyear_ui_grid.html">格栅</a> </li>
-                <li> <a href="lyear_ui_icons.html">图标</a> </li>
-                <li> <a href="lyear_ui_tables.html">表格</a> </li>
-                <li> <a href="lyear_ui_modals.html">模态框</a> </li>
-                <li> <a href="lyear_ui_tooltips_popover.html">提示 / 弹出框</a> </li>
-                <li> <a href="lyear_ui_alerts.html">警告框</a> </li>
-                <li> <a href="lyear_ui_pagination.html">分页</a> </li>
-                <li> <a href="lyear_ui_progress.html">进度条</a> </li>
-                <li> <a href="lyear_ui_tabs.html">标签页</a> </li>
-                <li> <a href="lyear_ui_typography.html">排版</a> </li>
-                <li> <a href="lyear_ui_step.html">步骤</a> </li>
-                <li> <a href="lyear_ui_other.html">其他</a> </li>
+                <li> <a href="lyear_pages_doc.html">文章列表</a> </li>
+                <li> <a href="write_article.html">写文章</a> </li>
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
-              <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 表单</a>
+              <a href="javascript:void(0)"><i class="mdi mdi-cup"></i>回收站</a>
               <ul class="nav nav-subnav">
-                <li> <a href="lyear_forms_elements.html">基本元素</a> </li>
-                <li> <a href="lyear_forms_radio.html">单选框</a> </li>
-                <li> <a href="lyear_forms_checkbox.html">复选框</a> </li>
-                <li> <a href="lyear_forms_switch.html">开关</a> </li>
+                <li> <a href="bin_list.html">回收站列表</a> </li>
+                <li> <a href="#">清空回收站</a> </li>
               </ul>
             </li>
             <li class="nav-item nav-item-has-subnav">
-              <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 示例页面</a>
+              <a href="javascript:void(0)"><i class="mdi mdi-content-save"></i> 评论列表</a>
               <ul class="nav nav-subnav">
-                <li> <a href="lyear_pages_doc.html">文档列表</a> </li>
-                <li> <a href="lyear_pages_gallery.html">图库列表</a> </li>
+                <li> <a href="lyear_pages_doc.html">全部评论</a> </li>
+                <li> <a href="lyear_forms_radio.html">未读评论</a> </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)"><i class="mdi mdi-menu"></i> 其他设置</a>
+              <ul class="nav nav-subnav">
+                <li> <a href="#!">个人信息设置</a> </li>
+                <li class="nav-item nav-item-has-subnav">
+                  <a href="./edit_pwd.html">修改密码</a>
+                </li>
+
+                 <li><a href="lyear_pages_gallery.html">图库列表</a> </li>
                 <li> <a href="lyear_pages_config.html">网站配置</a> </li>
                 <li> <a href="lyear_pages_rabc.html">设置权限</a> </li>
                 <li> <a href="lyear_pages_add_doc.html">新增文档</a> </li>
                 <li> <a href="lyear_pages_guide.html">表单向导</a> </li>
                 <li> <a href="lyear_pages_login.html">登录页面</a> </li>
                 <li> <a href="lyear_pages_error.html">错误页面</a> </li>
-              </ul>
-            </li>
-            <li class="nav-item nav-item-has-subnav active open">
-              <a href="javascript:void(0)"><i class="mdi mdi-language-javascript"></i> JS 插件</a>
-              <ul class="nav nav-subnav">
-                <li> <a href="lyear_js_datepicker.html">日期选取器</a> </li>
-                <li> <a href="lyear_js_sliders.html">滑块</a> </li>
-                <li> <a href="lyear_js_colorpicker.html">选色器</a> </li>
-                <li> <a href="lyear_js_chartjs.html">Chart.js</a> </li>
-                <li> <a href="lyear_js_jconfirm.html">对话框</a> </li>
-                <li> <a href="lyear_js_tags_input.html">标签插件</a> </li>
-                <li class="active"> <a href="lyear_js_notify.html">通知消息</a> </li>
+                <!-- <li> <a href="#!">一级菜单</a> </li> -->
               </ul>
             </li>
           </ul>
         </nav>
-        
+
         <div class="sidebar-footer">
           <p class="copyright">Copyright &copy; 2019. <a target="_blank" href="http://lyear.itshubao.com">IT书包</a> All rights reserved.</p>
         </div>
       </div>
-      
+
     </aside>
     <!--End 左侧导航-->
-    
+
     <!--头部信息-->
     <header class="lyear-layout-header">
-      
+
       <nav class="navbar navbar-default">
         <div class="topbar">
-          
+
           <div class="topbar-left">
             <div class="lyear-aside-toggler">
               <span class="lyear-toggler-bar"></span>
               <span class="lyear-toggler-bar"></span>
               <span class="lyear-toggler-bar"></span>
             </div>
-            <span class="navbar-page-title"> JS 插件 - 通知消息 </span>
+            <span class="navbar-page-title"> 评论列表 - 全部评论 </span>
           </div>
-          
+
           <ul class="topbar-right">
             <li class="dropdown dropdown-profile">
               <a href="javascript:void(0)" data-toggle="dropdown">
@@ -180,29 +174,29 @@
 				<li class="drop-skin-li clearfix">
                   <span class="inverse">
                     <input type="radio" name="header_bg" value="default" id="header_bg_1" checked>
-                    <label for="header_bg_1"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_1"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_2" id="header_bg_2">
-                    <label for="header_bg_2"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_2"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_3" id="header_bg_3">
                     <label for="header_bg_3"></label>
                   </span>
                   <span>
                     <input type="radio" name="header_bg" value="color_4" id="header_bg_4">
-                    <label for="header_bg_4"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_4"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_5" id="header_bg_5">
-                    <label for="header_bg_5"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_5"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_6" id="header_bg_6">
-                    <label for="header_bg_6"></label>                      
-                  </span>                                                    
-                  <span>                                                     
+                    <label for="header_bg_6"></label>
+                  </span>
+                  <span>
                     <input type="radio" name="header_bg" value="color_7" id="header_bg_7">
                     <label for="header_bg_7"></label>
                   </span>
@@ -250,103 +244,171 @@
 			</li>
             <!--切换主题配色-->
           </ul>
-          
+
         </div>
       </nav>
-      
+
     </header>
     <!--End 头部信息-->
-    
+
     <!--页面主要内容-->
     <main class="lyear-layout-content">
-      
-      <div class="container-fluid">
-        
+
+      <div class="container-fluid" id="cata_list">
+
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
-              <div class="card-header"><h4>通知消息</h4></div>
-              <div class="card-body">
-                
-                <button type="button" class="btn btn-primary" id="example-success-notify">确认修改</button>
-                <button type="button" class="btn btn-dark" id="example-error-notify">修改失败</button>
-                
-                <p class="m-t-10">页面加载等待效果</p>
-                <pre><code>lightyear.loading('show');  // 显示
-lightyear.loading('hide');  // 隐藏</code></pre>
-                
-                <p class="m-t-10">消息提示</p>
-                <p>消息提示采用的是bootstrap-notify插件，这里包装了一下(包装方法来自DolphinPHP)，您也可以直接使用bootstrap-notify。</p>
-                <table class="table table-bordered">
-                  <tr>
-                    <th>参数</th>
-                    <th>说明</th>
-                  </tr>
-                  <tr>
-                    <td>$msg</td>
-                    <td>提示信息</td>
-                  </tr>
-                  <tr>
-                    <td>$type</td>
-                    <td>提示类型：'info', 'success', 'warning', 'danger'</td>
-                  </tr>
-                  <tr>
-                    <td>$delay</td>
-                    <td>定义消息提示消失的时间，毫秒数</td>
-                  </tr>
-                  <tr>
-                    <td>$icon</td>
-                    <td>图标，例如：'mdi-emoticon-happy'，具体参考<a href="lyear_ui_icons.html">图标</a> </td>
-                  </tr>
-                  <tr>
-                    <td>$from</td>
-                    <td>'top' 或 'bottom'</td>
-                  </tr>
-                  <tr>
-                    <td>$align</td>
-                    <td>'left', 'right', 'center'</td>
-                  </tr>
-                </table>
-                <pre><code>lightyear.notify('修改成功，页面即将自动跳转~', 'success', 5000, 'mdi mdi-emoticon-happy', 'top', 'center');</code></pre>
+              <div class="card-toolbar clearfix">
+              <form class="pull-right search-bar" method="get" action="#!" role="form">
+                                <div class="input-group">
+                                      <span class="input-group-btn">
+                                        <button @click="load()" class="btn btn-default" type="button">搜索</button>
+                                      </span>
+                                      <input type="text" v-model="start_time" style="height: 38px" class="form-control" placeholder="请输入开始时间：年-月-日">
+                                    </div>
+                              </form>
+
+              </div>
+              <div class="card-body"  >
+
+                <div class="table-responsive" >
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>
+                          <label class="lyear-checkbox checkbox-primary">
+                            <input type="checkbox" id="check-all"><span></span>
+                          </label>
+                        </th>
+                        <th>用户编号</th>
+                        <th>用户名</th>
+                        <th>昵称</th>
+                        <th>内容</th>
+                        <th>发布日期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="cata in catalist">
+                        <td>
+                          <label class="lyear-checkbox ">
+                            <input type="checkbox"  :value="cata.id" v-model="checkbox_selected_vector">&nbsp<span></span>
+                            <input type="button" @click="load()">
+                          </label>
+                        </td>
+                        <td>{{cata.author_id}}</td>
+                        <td>{{cata.author_username}}</td>
+                        <td>{{cata.author_nickname}}</td>
+                        <td>{{cata.content}}</td>
+                        <td>{{cata.gmt_updated}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--
+                    <ul class="pagination">
+                                      <li class="first_page" @click="cur_page=1,channgePage()" v-if="cur_page!=1"><a>第一页</a></li>
+                                      <li  @click="cur_page--,channgePage()" v-if="cur_page>1"><span>«</span></li>
+                                      <li class="active"><span>{{cur_page}}</span></li>
+                                      <li><a @click="cur_page++,channgePage()" v-if="total_page>cur_page">{{cur_page+1}}</a></li>
+                                      <li class="disabled" v-if="total_page-cur_page>2"><span>...</span></li>
+                                      <li><a @click="cur_page=total_page-1,channgePage()" v-if="total_page-cur_page>2">{{total_page-1}}</a></li>
+                                      <li  @click="cur_page++,channgePage()" v-if="total_page>cur_page"><a>»</a></li>
+                                      <li class="lastest_page" @click="cur_page=total_page,channgePage()" v-if="cur_page!=total_page"><a>最后一页</a></li>
+                                    </ul>
+                -->
               </div>
             </div>
           </div>
-          
+
         </div>
-        
+
       </div>
-      
+
     </main>
     <!--End 页面主要内容-->
   </div>
 </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
-<!--消息提示-->
-<script src="js/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="js/lightyear.js"></script>
+<script src="js/jconfirm/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
 
-<script type="text/javascript">
-// 消息提示示例
-$('#example-success-notify').on('click', function(){
-    lightyear.loading('show');
-    // 假设ajax提交操作
-    setTimeout(function() {
-        lightyear.loading('hide');
-        lightyear.notify('修改成功，页面即将自动跳转~', 'success', 3000);
-    }, 1e3)
-});
-$('#example-error-notify').on('click', function(){
-    lightyear.loading('show');
-    // 假设ajax提交操作
-    setTimeout(function() {
-        lightyear.loading('hide');
-        lightyear.notify('服务器错误，请稍后再试~', 'danger', 100);
-    }, 1e3)
-});
+<!--for打印目录列表-->
+<script>
+    var vm = new Vue({
+  el: '#cata_list',
+  data:{
+    code:0,
+    catalist:[],
+    cur_page :1,
+    total_page:0,
+    checkbox_selected_vector:[],
+    start_time:'1970-1-1',
+  },
+  methods:{
+        load:function(){
+          $.ajax({
+                  type: 'post',
+                  sync: false,
+                  url:  'http://localhost:8848/admin/articles/comment/after/'+vm.start_time,
+                  contentType: 'application/json;charset=UTF-8',
+                  dataType: 'json',
+                  success: function (result) {
+                      //console.log(result.code);
+                  vm.code = result.code;
+                  if(vm.code==200){
+                    vm.catalist = result.message;
+                  }
+                  else{
+                    vm.catalist=[];
+                  }
+              }
+          })
+
+
+
+        },
+
+
+
+
+        deleteArticles:function(){
+for(i=0,len=vm.checkbox_selected_vector.length;i<len;i++){
+          var id = vm.checkbox_selected_vector[i];
+          $.ajax({
+                  type: 'post',
+                  sync: false,
+                  url:  'http://localhost:8848/admin/articles/comment/delete/'+id,
+                  contentType: 'application/json;charset=UTF-8',
+                  dataType: 'json',
+                  success: function (result) {
+                      //console.log(result.code);
+                  vm.code = result.code;
+                  if(vm.code!=200){
+                    lightyear.notify('删除失败', 'danger', 1000, 'mdi mdi-emoticon-sad', 'top', 'center');
+                  }
+              }
+          });
+
+        }
+        if(vm.code==200){
+                    //vm.catalist = result.message;
+                    lightyear.notify('删除成功', 'success', 1000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                  }
+                  else{
+                    //vm.catalist=[];
+                    lightyear.notify('删除失败，请刷新再试', 'danger', 1000, 'mdi mdi-emoticon-sad', 'top', 'center');
+                  }
+                  //vm.cur_page=1;//这个地方可能数据库并发问题，删除不会自动换页
+                  //vm.channgePage();
+                  location.reload();
+       }
+       }
+    });
+
+window.onload=vm.load();
 </script>
 </body>
 </html>

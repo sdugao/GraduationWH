@@ -13,7 +13,7 @@ import gra.gao.gra.entity.Guest;
 
 public interface GuestService {
 
-    public boolean determineGuestLogin(GuestDTO guestDTO);
+    public boolean determineGuestLogin(String uuid);
     public GuestDTO guestLogin(GuestDTO guestDTO);
     public String guestLoginByUUID(String uuid);
     public String determineUnameUsed(String uname);

@@ -19,6 +19,8 @@
 <script src="js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="js/lightyear.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
+
+<script src="../../js/myjs.js"></script>
 </head>
 
 <body>
@@ -338,7 +340,7 @@
           $.ajax({
                   type: 'post',
                   sync: false,
-                  url:  'http://localhost:8848/admin/articles/comment/notread',
+                  url:  'http://'+g_url+'/admin/articles/comment/notread',
                   contentType: 'application/json;charset=UTF-8',
                   dataType: 'json',
                   success: function (result) {
@@ -366,7 +368,7 @@ for(i=0,len=vm.checkbox_selected_vector.length;i<len;i++){
           $.ajax({
                   type: 'post',
                   sync: false,
-                  url:  'http://localhost:8848/admin/articles/comment/delete/'+id,
+                  url:  'http://'+g_url+'/admin/articles/comment/delete/'+id,
                   contentType: 'application/json;charset=UTF-8',
                   dataType: 'json',
                   success: function (result) {

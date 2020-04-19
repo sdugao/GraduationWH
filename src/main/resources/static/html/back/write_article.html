@@ -21,7 +21,9 @@
 <script src="editor.md/editormd.min.js" type="application/javascript"></script>
 <script type="text/javascript" src="js/vue.js"></script>
 <script src="js/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="js/lightyear.js"></script>>
+<script type="text/javascript" src="js/lightyear.js"></script>
+
+<script src="../../js/myjs.js"></script>
 </head>
 
 <body>
@@ -356,7 +358,7 @@
               $.ajax({
           type: 'post',
           sync: false,
-          url:  'http://localhost:8848/admin/articles/write',
+          url:  'http://'+g_url+'/admin/articles/write',
           data:JSON.stringify(vm.msg),
           contentType: 'application/json;charset=UTF-8',
           dataType: 'json',

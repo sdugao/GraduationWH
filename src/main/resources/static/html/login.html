@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-<>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>登录页面 </title>
@@ -12,6 +11,8 @@
 <link href="back/css/materialdesignicons.min.css" rel="stylesheet">
 <link href="back/css/style.min.css" rel="stylesheet">
 <link href="back/css/animate.css" rel="stylesheet">
+
+<script src="../js/myjs.js"></script>
 <style>
 .lyear-wrapper {
     position: relative;
@@ -127,7 +128,7 @@
                   $.ajax({
                             type: 'post',
                             sync: false,
-                            url:  'http://localhost:8848/guest/login',
+                            url:  'http://'+g_url+'/guest/login',
                             data:JSON.stringify({
                                 username:uname,
                                 password:pwd

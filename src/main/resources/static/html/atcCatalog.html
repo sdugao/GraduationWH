@@ -11,7 +11,8 @@
     <script src="../js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="../js/bootstrap.min.js" type="application/javascript"></script>
     <script src="../js/vue.min.js" type="application/javascript"></script>
-
+    <script src="../js/myjs.js"></script>
+    
 <script>
  function  getQueryVariable (variable){
                     var query = window.location.search.substring(1);
@@ -26,13 +27,13 @@
 
     <script>
         window.onload = function(){
-            var url = "http://localhost:8848/articles/catalog/1";
+            var url = "http://"+g_url+"/articles/catalog/1";
             var vm = new Vue({
                 el:'#gcatalog',
                 data:{
                     code: 0,
                     list:[],
-                    content_url:"http://localhost:8848/html/atcDetails.html?id=",
+                    content_url:"http://"+g_url+"/html/atcDetails.html?id=",
                     cur_page :1,
                     total_page:0,
                 },
@@ -59,7 +60,7 @@
                     $.ajax({
                                           type: 'post',
                                           sync: false,
-                                          url:  'http://localhost:8848/articles/catalog/pagenum',
+                                          url:  'http://'+g_url+'/articles/catalog/pagenum',
                                           contentType: 'application/json;charset=UTF-8',
                                           dataType: 'json',
                                           success: function (result) {
@@ -88,7 +89,7 @@
                               $.ajax({
                                       type: 'get',
                                       sync: false,
-                                      url:  'http://localhost:8848/articles/catalog/'+vm.cur_page,
+                                      url:  'http://'+g_url+'/articles/catalog/'+vm.cur_page,
                                       contentType: 'application/json;charset=UTF-8',
                                       dataType: 'json',
                                       success: function (result) {
@@ -154,7 +155,7 @@
                                                     $.ajax({
                                                                                                                                                                   type: 'post',
                                                                                                                                                                   sync: false,
-                                                                                                                                                                  url:  'http://localhost:8848/guest/logout',
+                                                                                                                                                                  url:  'http://'+g_url+'/guest/logout',
                                                                                                                                                                   contentType: 'application/json;charset=UTF-8',
                                                                                                                                                                   dataType: 'json',
                                                                                                                                                                   success: function (result) {
@@ -257,7 +258,7 @@ var vm_user=new Vue({
           $.ajax({
                                                     type: 'post',
                                                     sync: false,
-                                                    url:  'http://localhost:8848/guest/determineLogin',
+                                                    url:  'http://'+g_url+'/guest/determineLogin',
                                                     contentType: 'application/json;charset=UTF-8',
                                                     dataType: 'json',
                                                     success: function (result) {

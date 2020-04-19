@@ -17,6 +17,8 @@
 <script src="js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="js/lightyear.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
+
+<script src="../../js/myjs.js"></script>
 </head>
 
 <body>
@@ -311,7 +313,7 @@
                     $.ajax({
                                   type: 'post',
                                   sync: false,
-                                  url:  'http://localhost:8848/admin/update/pwd',
+                                  url:  'http://'+g_url+'/admin/update/pwd',
                                   contentType: 'application/json;charset=UTF-8',
                                   dataType: 'json',
                                   data:JSON.stringify({

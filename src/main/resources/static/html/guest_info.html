@@ -12,6 +12,7 @@
 <link href="back/css/materialdesignicons.min.css" rel="stylesheet">
 <link href="back/css/style.min.css" rel="stylesheet">
 <link href="back/css/animate.css" rel="stylesheet">
+<script src="../js/myjs.js"></script>
 <style>
 .lyear-wrapper {
     position: relative;
@@ -114,7 +115,7 @@
                   $.ajax({
                             type: 'post',
                             sync: false,
-                            url:  'http://localhost:8848/guest/updateGuestInfo',
+                            url:  'http://'+g_url+'/guest/updateGuestInfo',
                             data:JSON.stringify({
                                 username:vm.uname,
                                 password:vm.pwd,

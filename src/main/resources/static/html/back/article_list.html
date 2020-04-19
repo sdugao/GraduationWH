@@ -19,6 +19,8 @@
 <script src="js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="js/lightyear.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
+
+<script src="../../js/myjs.js"></script>
 </head>
 
 <body>
@@ -392,7 +394,7 @@ $('#delete_btn').on('click', function () {
           $.ajax({
                   type: 'get',
                   sync: false,
-                  url:  'http://localhost:8848/articles/catalog/'+vm.cur_page,
+                  url:  'http://'+g_url+'/articles/catalog/'+vm.cur_page,
                   contentType: 'application/json;charset=UTF-8',
                   dataType: 'json',
                   success: function (result) {
@@ -410,7 +412,7 @@ $('#delete_btn').on('click', function () {
           $.ajax({
                   type: 'post',
                   sync: false,
-                  url:  'http://localhost:8848/articles/catalog/pagenum',
+                  url:  'http://'+g_url+'/articles/catalog/pagenum',
                   contentType: 'application/json;charset=UTF-8',
                   dataType: 'json',
                   success: function (result) {
@@ -439,7 +441,7 @@ $('#delete_btn').on('click', function () {
           $.ajax({
                   type: 'get',
                   sync: false,
-                  url:  'http://localhost:8848/articles/catalog/'+vm.cur_page,
+                  url:  'http://'+g_url+'/articles/catalog/'+vm.cur_page,
                   contentType: 'application/json;charset=UTF-8',
                   dataType: 'json',
                   success: function (result) {
@@ -461,7 +463,7 @@ for(i=0,len=vm.checkbox_selected_vector.length;i<len;i++){
           $.ajax({
                   type: 'post',
                   sync: false,
-                  url:  'http://localhost:8848/admin/articles/delete/'+id,
+                  url:  'http://'+g_url+'/admin/articles/delete/'+id,
                   contentType: 'application/json;charset=UTF-8',
                   dataType: 'json',
                   success: function (result) {

@@ -16,6 +16,8 @@
 <script src="js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="js/lightyear.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
+
+<script src="../../js/myjs.js"></script>
 </head>
   
 <body>
@@ -376,7 +378,7 @@ var vm = new Vue({
                 //   $.ajax({
                 //             type: 'post',
                 //             sync: false,
-                //             url:  'http://localhost:8848/admin/login',
+                //             url:  'http://'+g_url+'/admin/login',
                 //             data:JSON.stringify({
                 //                 username:uname,
                 //                 password:pwd
@@ -403,7 +405,7 @@ var vm = new Vue({
                     $.ajax({
                             type: 'post',
                             sync: false,
-                            url:  'http://localhost:8848/admin/visit/today',
+                            url:  'http://'+g_url+'/admin/visit/today',
                             contentType: 'application/json;charset=UTF-8',
                             dataType: 'json',
                             success: function (result) {
@@ -422,7 +424,7 @@ var vm = new Vue({
                     $.ajax({
                             type: 'post',
                             sync: false,
-                            url:  'http://localhost:8848/admin/articles/comment/today',
+                            url:  'http://'+g_url+'/admin/articles/comment/today',
                             contentType: 'application/json;charset=UTF-8',
                             dataType: 'json',
                             success: function (result) {

@@ -1,5 +1,5 @@
 server:
-  port: 8848
+  port: 3389
   forward-headers-strategy: native
   compression:
     enabled: false
@@ -21,7 +21,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/gra_blog?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: gao
+    #windows
+    #password: gao
+    #centos
+    password: gaoxf
 logging:
   level:
     gra.gao.gra.mapper: debug

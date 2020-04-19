@@ -21,7 +21,7 @@
     <script src="../js/editor.md/lib/flowchart.min.js"></script>
     <script src="../js/editor.md/lib/jquery.flowchart.min.js"></script>
     <script src="../js/editor.md/editormd.js"></script>
-
+    <script src="../js/myjs.js"></script>
 
 
 <link href="back/css/materialdesignicons.min.css" rel="stylesheet">
@@ -63,7 +63,7 @@
                                     $.ajax({
                                                                                                                                                   type: 'post',
                                                                                                                                                   sync: false,
-                                                                                                                                                  url:  'http://localhost:8848/guest/logout',
+                                                                                                                                                  url:  'http://'+g_url+'/guest/logout',
                                                                                                                                                   contentType: 'application/json;charset=UTF-8',
                                                                                                                                                   dataType: 'json',
                                                                                                                                                   success: function (result) {
@@ -186,7 +186,7 @@
 
 <script>
         //window.onload = function(){
-            var url="http://localhost:8848/articles/details/";
+            var url='http://'+g_url+'/articles/details/';
             var vm = new Vue({
                 el:'#gdetails',
                 data:{
@@ -249,7 +249,7 @@
                       $.ajax({
                                                                 type: 'post',
                                                                 sync: false,
-                                                                url:  'http://localhost:8848/guest/determineLogin',
+                                                                url:  'http://'+g_url+'/guest/determineLogin',
                                                                 contentType: 'application/json;charset=UTF-8',
                                                                 dataType: 'json',
                                                                 success: function (result) {
@@ -298,7 +298,7 @@
                                   $.ajax({
                                                                             type: 'post',
                                                                             sync: false,
-                                                                            url:  'http://localhost:8848/articles/comment/'+this.getQueryVariable("id"),
+                                                                            url:  'http://'+g_url+'/articles/comment/'+this.getQueryVariable("id"),
                                                                             contentType: 'application/json;charset=UTF-8',
                                                                             dataType: 'json',
                                                                             success: function (result) {
@@ -345,7 +345,7 @@
                                         $.ajax({
                                                      type: 'post',
                                                      sync: false,
-                                                     url:  'http://localhost:8848/articles/comment/reply',
+                                                     url:  'http://'+g_url+'/articles/comment/reply',
                                                      contentType: 'application/json;charset=UTF-8',
                                                      dataType: 'json',
                                                       data:JSON.stringify({

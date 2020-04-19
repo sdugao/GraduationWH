@@ -39,7 +39,7 @@ public class GuestLoginInterceptor implements HandlerInterceptor {
             }
 
         boolean flag=false;
-            if(cookie_str!=null&&cookie_str.equals(""))
+            if(cookie_str!=null&&!cookie_str.equals(""))
                 flag= guestService.determineGuestLogin(cookie_str);
         if(flag==false){
             String url = request.getRequestURI();
